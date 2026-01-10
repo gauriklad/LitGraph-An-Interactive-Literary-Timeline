@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>LitTimeAR VR Museum Example</title>
+    <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+  </head>
+  <body>
+    <a-scene>
+      <!-- Room for Romanticism Era -->
+      <a-box position="0 0 -10" width="10" height="4" depth="10" color="#f5f5dc" opacity="0.9"></a-box>
+      <a-plane position="0 2 -9.9" width="8" height="3" color="#c2b280" 
+              material="shader: flat"
+              text="value: Romanticism Era; color: black; align:center"></a-plane>
+      
+      <!-- Author Statue or Card -->
+      <a-cylinder position="-2 1.5 -8" height="3" radius="0.5" color="#8b4513"></a-cylinder>
+      <a-text value="Author Name" position="-2 3 -8" color="#000"></a-text>
+      
+      <!-- Historical Event Display -->
+      <a-sphere position="2 1 -8" radius="0.4" color="red" 
+                event-set__enter="_event: mouseenter; color: orange"
+                event-set__leave="_event: mouseleave; color: red"></a-sphere>
+      <a-text value="Printing Press Impact" position="2 2 -8" color="#222"></a-text>
+
+      <!-- Navigation Portal -->
+      <a-box position="5 1 -10" depth="0.5" height="3" width="3" color="#444"
+             class="portal" event-set__click="_event: click; _target: #modernismRoom; visible: true">
+        <a-text value="Go to Modernism" align="center" position="0 0 0.3" color="#fff"></a-text>
+      </a-box>
+
+      <!-- Camera -->
+      <a-entity camera look-controls wasd-controls position="0 1.6 0"></a-entity>
+    </a-scene>
+  </body>
+</html>
