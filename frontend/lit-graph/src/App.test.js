@@ -1,8 +1,20 @@
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import { render, screen } from "@testing-library/react";
+import App from "./App";
 
-test('renders learn react link', () => {
+test("renders LitGraph application title", () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  const titleElement = screen.getByText(/litgraph/i);
+  expect(titleElement).toBeInTheDocument();
+});
+
+test("renders Stylometric Analysis module", () => {
+  render(<App />);
+  const dnaHeading = screen.getByText(/literary dna/i);
+  expect(dnaHeading).toBeInTheDocument();
+});
+
+test("renders Author Influence Graph module", () => {
+  render(<App />);
+  const graphHeading = screen.getByText(/author influence/i);
+  expect(graphHeading).toBeInTheDocument();
 });
