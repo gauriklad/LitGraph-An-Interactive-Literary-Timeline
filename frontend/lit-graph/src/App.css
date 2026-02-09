@@ -1,129 +1,44 @@
 .App {
   min-height: 100vh;
-  background-color: #f1f5f9;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
 
-/* HEADER */
+/* Remove the section-specific classes since we're using routes now */
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
 
 .App-header {
-  background: linear-gradient(135deg, #0f172a, #1e293b);
-  padding: 56px 20px 64px;
-  text-align: center;
-  color: #f8fafc;
-}
-
-.App-logo {
-  height: 64px;
-  margin-bottom: 16px;
-}
-
-.App-header h1 {
-  margin: 0;
-  font-size: 2.4rem;
-  font-weight: 700;
-}
-
-.App-header p {
-  margin-top: 10px;
-  font-size: 1rem;
-  color: #c7d2fe;
-}
-
-/* MAIN LAYOUT – TRUE CENTERING */
-
-.App-main {
-  display: flex;
-  justify-content: center;
-  padding: 56px 16px 96px;
-}
-
-.content-wrapper {
-  width: 100%;
-  max-width: 880px;
+  background-color: #282c34;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  gap: 64px;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
 }
 
-/* SECTION STYLES (NOT HEAVY CARDS) */
-
-.section {
-  padding: 0;
+.module-container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #1a1a1a;
+  border-radius: 8px;
 }
 
-/* DNA ANALYZER */
-
-.section h2 {
-  margin-bottom: 8px;
-  font-size: 1.6rem;
-  color: #020617;
-}
-
-.section p {
-  max-width: 640px;
-  color: #475569;
-  margin-bottom: 16px;
-}
-
-/* TEXTAREA */
-
-textarea {
-  width: 100%;
-  min-height: 140px;
-  padding: 16px;
-  border-radius: 12px;
-  border: 1px solid #e5e7eb;
-  background: #ffffff;
-  font-size: 1rem;
-  line-height: 1.6;
-}
-
-textarea:focus {
-  outline: none;
-  border-color: #38bdf8;
-}
-
-/* BUTTON */
-
-.dna-actions {
-  margin-top: 20px;
-}
-
-button {
-  background-color: #38bdf8;
-  color: #020617;
-  border: none;
-  padding: 12px 28px;
-  border-radius: 999px;
-  font-size: 0.95rem;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #0ea5e9;
-}
-
-button:disabled {
-  background-color: #94a3b8;
-  cursor: not-allowed;
-}
-
-/* RADAR PLACEHOLDER */
-
-.radar-placeholder {
-  text-align: center;
-  color: #94a3b8;
-  font-size: 0.95rem;
-  padding: 32px 0;
-}
-
-/* GRAPH SECTION */
-
-.section.dark {
-  background: #020617;
-  padding: 32px 24px 40px;
-  border-radius: 16px;
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

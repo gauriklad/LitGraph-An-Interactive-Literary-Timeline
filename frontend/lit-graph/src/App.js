@@ -1,36 +1,27 @@
-import { useState } from "react";
-import DNAAnalyzer from "./DNAAnalyzer";
-import RadarChartView from "./RadarChartView";
-import InfluenceGraph from "./InfluenceGraph";
-import logo from "./logo.svg";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import DNA from "./pages/DNA";
+import Influence from "./pages/Influence";
+import { Header } from "./layout/Header";
+import { Footer } from "./layout/Footer";
 import "./App.css";
+import "./ui/Header.css";
+import "./ui/Footer.css";
 
 function App() {
-  const [result, setResult] = useState(null);
-
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="LitGraph logo" />
+    <Router>
+      <div className="App">
+        <Header />
+        
+        <Routes>
+          <Route path="/" element={<Influence />} />
+          <Route path="/influence" element={<Influence />} />
+          <Route path="/dna" element={<DNA />} />
+        </Routes>
 
-        <h1>LitGraph</h1>
-        <p>
-          An Interactive Literary Timeline and Stylometric Analysis Platform
-        </p>
-
-        <section className="module-container">
-          <DNAAnalyzer onResult={setResult} />
-        </section>
-
-        <section className="module-container">
-          <RadarChartView result={result} />
-        </section>
-
-        <section className="module-container">
-          <InfluenceGraph />
-        </section>
-      </header>
-    </div>
+        <Footer />
+      </div>
+    </Router>
   );
 }
 

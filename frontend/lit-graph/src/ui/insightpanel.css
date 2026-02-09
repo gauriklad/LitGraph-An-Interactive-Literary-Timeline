@@ -1,0 +1,276 @@
+.insight-panel {
+  width: 280px;
+  min-width: 280px;
+  background-color: #0f172a;
+  border-right: 1px solid #1e293b;
+  padding: 1.5rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  height: 100%;
+}
+
+.panel-header {
+  margin-bottom: 0.5rem;
+}
+
+.panel-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #f1f5f9;
+  margin: 0;
+}
+
+.loading-text {
+  color: #64748b;
+  text-align: center;
+}
+
+.selected-item {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.author-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.author-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.author-initials {
+  color: white;
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.author-info {
+  flex: 1;
+}
+
+.author-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #f1f5f9;
+  margin: 0 0 0.25rem 0;
+}
+
+.author-era {
+  font-size: 0.75rem;
+  color: #64748b;
+  text-transform: capitalize;
+  margin: 0;
+}
+
+.author-description {
+  font-size: 0.875rem;
+  color: #94a3b8;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.connection-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.connection-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.connection-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.connection-names {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #f1f5f9;
+  margin: 0 0 0.75rem 0;
+}
+
+.connection-description {
+  font-size: 0.875rem;
+  color: #94a3b8;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.empty-state {
+  padding: 1rem 0;
+}
+
+.empty-state p {
+  font-size: 0.875rem;
+  color: #64748b;
+  margin: 0;
+}
+
+.filter-section,
+.legend-section {
+  padding-top: 0.5rem;
+}
+
+.section-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #f1f5f9;
+  margin: 0 0 0.75rem 0;
+}
+
+.filter-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.filter-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.625rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.filter-item:hover {
+  background-color: #1e293b;
+}
+
+.filter-checkbox {
+  width: 1rem;
+  height: 1rem;
+  cursor: pointer;
+}
+
+.filter-icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+.filter-label {
+  font-size: 0.875rem;
+  color: #f1f5f9;
+}
+
+.legend-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.legend-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.legend-item span {
+  font-size: 0.75rem;
+  color: #94a3b8;
+}
+
+.connections-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.connection-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.connection-line {
+  width: 32px;
+  height: 2px;
+}
+
+.influence-line {
+  background-color: #60a5fa;
+}
+
+.rivalry-line {
+  background-color: #f87171;
+}
+
+.peer-line {
+  background-color: #34d399;
+}
+
+.connection-legend-item span {
+  font-size: 0.75rem;
+  color: #94a3b8;
+}
+
+/* Era colors */
+.era-neoclassical {
+  background-color: hsl(145, 25%, 35%);
+}
+
+.era-romantic {
+  background-color: hsl(340, 45%, 55%);
+}
+
+.era-victorian {
+  background-color: hsl(35, 35%, 50%);
+}
+
+.era-modernist {
+  background-color: hsl(210, 40%, 50%);
+}
+
+.era-postmodern {
+  background-color: hsl(280, 40%, 55%);
+}
+
+/* Scrollbar styling */
+.insight-panel::-webkit-scrollbar {
+  width: 6px;
+}
+
+.insight-panel::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+
+.insight-panel::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 3px;
+}
+
+.insight-panel::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
