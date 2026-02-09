@@ -1,11 +1,10 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import DNA from "./pages/DNA";
 import Influence from "./pages/Influence";
+import Time from "./pages/Time";
 import { Header } from "./layout/Header";
 import { Footer } from "./layout/Footer";
 import "./App.css";
-import "./ui/Header.css";
-import "./ui/Footer.css";
 
 function App() {
   return (
@@ -14,9 +13,10 @@ function App() {
         <Header />
         
         <Routes>
-          <Route path="/" element={<Influence />} />
-          <Route path="/influence" element={<Influence />} />
+          <Route path="/" element={<Time />} />
+          <Route path="/time" element={<Time />} />
           <Route path="/dna" element={<DNA />} />
+          <Route path="/influence" element={<Influence />} />
         </Routes>
 
         <Footer />

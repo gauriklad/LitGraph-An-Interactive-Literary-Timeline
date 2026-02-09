@@ -1,0 +1,423 @@
+.timeline-card-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  opacity: 0;
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card-left {
+  justify-content: flex-start;
+}
+
+.card-right {
+  justify-content: flex-end;
+}
+
+@media (min-width: 768px) {
+  .card-left {
+    justify-content: flex-start;
+  }
+  
+  .card-right {
+    justify-content: flex-end;
+  }
+}
+
+/* Timeline Dot */
+.timeline-dot {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .timeline-dot {
+    display: flex;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #9ca3af;
+    border: 2px solid #f5f5f0;
+    z-index: 10;
+  }
+}
+
+/* Card */
+.timeline-card {
+  position: relative;
+  width: 100%;
+  cursor: pointer;
+}
+
+@media (min-width: 768px) {
+  .timeline-card {
+    width: 42%;
+  }
+  
+  .card-left .timeline-card {
+    margin-right: auto;
+    margin-left: 3rem;
+  }
+  
+  .card-right .timeline-card {
+    margin-left: auto;
+    margin-right: 3rem;
+  }
+}
+
+.card-content {
+  position: relative;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  border: 1px solid;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.card-content:hover {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transform: translateY(-4px);
+}
+
+/* Era Colors */
+.era-neoclassical-bg {
+  background-color: hsl(145, 30%, 95%);
+  border-color: hsl(145, 25%, 35%, 0.3);
+}
+
+.era-romantic-bg {
+  background-color: hsl(340, 50%, 95%);
+  border-color: hsl(340, 45%, 55%, 0.3);
+}
+
+.era-victorian-bg {
+  background-color: hsl(35, 40%, 95%);
+  border-color: hsl(35, 35%, 50%, 0.3);
+}
+
+.era-modernist-bg {
+  background-color: hsl(210, 45%, 95%);
+  border-color: hsl(210, 40%, 50%, 0.3);
+}
+
+.era-postmodern-bg {
+  background-color: hsl(280, 45%, 95%);
+  border-color: hsl(280, 40%, 55%, 0.3);
+}
+
+.era-neoclassical-text {
+  color: hsl(145, 25%, 35%);
+}
+
+.era-romantic-text {
+  color: hsl(340, 45%, 55%);
+}
+
+.era-victorian-text {
+  color: hsl(35, 35%, 50%);
+}
+
+.era-modernist-text {
+  color: hsl(210, 40%, 50%);
+}
+
+.era-postmodern-text {
+  color: hsl(280, 40%, 55%);
+}
+
+.era-period {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+}
+
+.era-title {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: #1f2937;
+  padding-right: 2.5rem;
+}
+
+@media (min-width: 768px) {
+  .era-title {
+    font-size: 1.5rem;
+  }
+}
+
+.era-summary {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-bottom: 1.25rem;
+  line-height: 1.6;
+}
+
+.explore-button {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: gap 0.2s ease;
+}
+
+.explore-button:hover {
+  gap: 0.625rem;
+}
+
+.button-icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal-content {
+  position: relative;
+  background-color: white;
+  border-radius: 1rem;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+  max-width: 42rem;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  animation: scaleIn 0.3s ease;
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  padding: 0.5rem;
+  border-radius: 9999px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  z-index: 10;
+}
+
+.modal-close:hover {
+  background-color: #f3f4f6;
+}
+
+.close-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: #6b7280;
+}
+
+.modal-header-accent {
+  height: 0.5rem;
+  width: 100%;
+  border-radius: 1rem 1rem 0 0;
+}
+
+.modal-header-accent.era-neoclassical {
+  background-color: hsl(145, 25%, 35%);
+}
+
+.modal-header-accent.era-romantic {
+  background-color: hsl(340, 45%, 55%);
+}
+
+.modal-header-accent.era-victorian {
+  background-color: hsl(35, 35%, 50%);
+}
+
+.modal-header-accent.era-modernist {
+  background-color: hsl(210, 40%, 50%);
+}
+
+.modal-header-accent.era-postmodern {
+  background-color: hsl(280, 40%, 55%);
+}
+
+.modal-body {
+  padding: 2rem;
+}
+
+.modal-header-section {
+  margin-bottom: 1.5rem;
+}
+
+.modal-period {
+  font-size: 0.875rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.modal-title {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 1.875rem;
+  margin: 0.25rem 0 0.5rem 0;
+  color: #1f2937;
+}
+
+.modal-theme {
+  font-weight: 500;
+  font-style: italic;
+}
+
+.modal-description {
+  color: #6b7280;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.loading-text {
+  color: #6b7280;
+  text-align: center;
+  padding: 2rem 0;
+}
+
+.modal-section {
+  margin-bottom: 2rem;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.section-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: #6366f1;
+}
+
+.section-title {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 1.25rem;
+  color: #1f2937;
+  margin: 0;
+}
+
+.works-grid {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.work-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem;
+  border-radius: 0.75rem;
+  background-color: rgba(243, 244, 246, 0.5);
+}
+
+.work-title {
+  font-weight: 500;
+  color: #1f2937;
+}
+
+.work-author {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.authors-flex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.author-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  background-color: rgba(243, 244, 246, 0.5);
+}
+
+.author-avatar {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: white;
+}
+
+.author-avatar.era-neoclassical {
+  background-color: hsl(145, 25%, 35%);
+}
+
+.author-avatar.era-romantic {
+  background-color: hsl(340, 45%, 55%);
+}
+
+.author-avatar.era-victorian {
+  background-color: hsl(35, 35%, 50%);
+}
+
+.author-avatar.era-modernist {
+  background-color: hsl(210, 40%, 50%);
+}
+
+.author-avatar.era-postmodern {
+  background-color: hsl(280, 40%, 55%);
+}
+
+.author-name {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #1f2937;
+}

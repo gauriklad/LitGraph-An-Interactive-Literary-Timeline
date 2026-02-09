@@ -5,6 +5,7 @@ const cors = require('cors');
 
 const dnaRoutes = require('./routes/dna');
 const graphRoutes = require('./routes/graph');
+const timelineRouter = require('./routes/timeline');
 
 const app = express();
 app.use(cors());
@@ -16,6 +17,7 @@ mongoose.connect(process.env.MONGO_URI)
 
 app.use('/api/dna', dnaRoutes);
 app.use('/api/graph', graphRoutes);
+app.use('/api/timeline', timelineRouter);
 
 const debugRoutes = require('./routes/debug');
 

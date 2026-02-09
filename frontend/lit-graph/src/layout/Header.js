@@ -43,6 +43,20 @@ export function Header() {
         {/* Navigation */}
         <nav className="header-nav">
           <Link
+            to="/time"
+            className={`nav-link ${
+              location.pathname === '/' || location.pathname === '/time'
+                ? isInfluencePage 
+                  ? 'nav-link-dark-active' 
+                  : 'nav-link-active'
+                : isInfluencePage 
+                  ? 'nav-link-dark' 
+                  : ''
+            }`}
+          >
+            Timeline
+          </Link>
+          <Link
             to="/dna"
             className={`nav-link ${
               location.pathname === '/' || location.pathname === '/dna'
