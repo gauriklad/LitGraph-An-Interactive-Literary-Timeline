@@ -375,13 +375,16 @@
   gap: 0.5rem;
 }
 
-.author-badge {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1rem;
-  border-radius: 9999px;
-  background-color: rgba(243, 244, 246, 0.5);
+/* ... existing styles ... */
+/* ... existing styles ... */
+
+.author-image {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 2px solid #e5e7eb;
 }
 
 .author-avatar {
@@ -394,6 +397,7 @@
   font-size: 0.75rem;
   font-weight: 600;
   color: white;
+  flex-shrink: 0;
 }
 
 .author-avatar.era-neoclassical {
@@ -416,8 +420,105 @@
   background-color: hsl(280, 40%, 55%);
 }
 
+.author-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.625rem 1rem;
+  border-radius: 9999px;
+  background-color: rgba(243, 244, 246, 0.5);
+}
+
+.author-info-badge {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
 .author-name {
   font-size: 0.875rem;
   font-weight: 500;
   color: #1f2937;
+}
+
+.author-years {
+  font-size: 0.75rem;
+  color: #9ca3af;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ... existing styles ... */
+
+.works-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+.work-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.875rem;
+  border-radius: 0.75rem;
+  background-color: rgba(243, 244, 246, 0.5);
+  transition: all 0.2s ease;
+}
+
+.work-item-clickable {
+  cursor: pointer;
+}
+
+.work-item-clickable:hover {
+  background-color: rgba(243, 244, 246, 0.8);
+  transform: translateX(4px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.work-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.work-title {
+  font-weight: 500;
+  color: #1f2937;
+  flex: 1;
+  font-size: 0.9375rem;
+}
+
+.work-link-icon {
+  width: 1rem;
+  height: 1rem;
+  color: #6b7280;
+  flex-shrink: 0;
+}
+
+.work-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8125rem;
+}
+
+.work-author {
+  color: #6b7280;
+}
+
+.work-separator {
+  color: #d1d5db;
+}
+
+.work-year {
+  color: #9ca3af;
+  font-size: 0.75rem;
+}
+
+/* Responsive - single column on mobile */
+@media (max-width: 640px) {
+  .works-grid {
+    grid-template-columns: 1fr;
+  }
 }

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ChevronRight, X, BookOpen, Users } from "lucide-react";
+import { ChevronRight, X, BookOpen, Users, ExternalLink, User } from "lucide-react";
 import "../ui/TimelineCard.css";
 
 const eraColorClasses = {
@@ -15,6 +15,7 @@ export function TimelineCard({ era, index, isLeft }) {
   const [works, setWorks] = useState([]);
   const [authors, setAuthors] = useState([]);
   const [loadingDetails, setLoadingDetails] = useState(false);
+  const [imageErrors, setImageErrors] = useState({});
 
   const eraColorClass =
     eraColorClasses[era.name.toLowerCase()] || "era-neoclassical";
@@ -37,6 +38,16 @@ export function TimelineCard({ era, index, isLeft }) {
         setLoadingDetails(false);
       }
     }
+  };
+
+  const handleWorkClick = (link) => {
+    if (link) {
+      window.open(link, '_blank', 'noopener,noreferrer');
+    }
+  };
+
+  const handleImageError = (authorId) => {
+    setImageErrors(prev => ({ ...prev, [authorId]: true }));
   };
 
   return (
@@ -105,7 +116,7 @@ export function TimelineCard({ era, index, isLeft }) {
               ) : (
                 <>
                   {/* Major Masterpieces */}
-                  {works.length > 0 && (
+                  {works.slice(0,6).length > 0 && (
                     <div className="modal-section">
                       <div className="section-header">
                         <BookOpen className="section-icon" />
@@ -113,9 +124,24 @@ export function TimelineCard({ era, index, isLeft }) {
                       </div>
                       <div className="works-grid">
                         {works.map((work) => (
-                          <div key={work._id} className="work-item">
-                            <span className="work-title">{work.title}</span>
-                            <span className="work-author">{work.authorName}</span>
+                          <div 
+                            key={work._id} 
+                            className={`work-item ${work.link ? 'work-item-clickable' : ''}`}
+                            onClick={() => work.link && handleWorkClick(work.link)}
+                          >
+                            <div className="work-main">
+                              <span className="work-title">{work.title}</span>
+                              {work.link && <ExternalLink className="work-link-icon" />}
+                            </div>
+                            <div className="work-meta">
+                              <span className="work-author">{work.authorName}</span>
+                              {work.publicationYear && (
+                                <>
+                                  <span className="work-separator">•</span>
+                                  <span className="work-year">{work.publicationYear}</span>
+                                </>
+                              )}
+                            </div>
                           </div>
                         ))}
                       </div>
@@ -132,10 +158,26 @@ export function TimelineCard({ era, index, isLeft }) {
                       <div className="authors-flex">
                         {authors.map((author) => (
                           <div key={author._id} className="author-badge">
-                            <span className={`author-avatar ${eraColorClass}`}>
-                              {author.initials}
-                            </span>
-                            <span className="author-name">{author.name}</span>
+                            {author.image && !imageErrors[author._id] ? (
+                              <img
+                                src={author.image}
+                                alt={author.name}
+                                className="author-image"
+                                onError={() => handleImageError(author._id)}
+                              />
+                            ) : (
+                              <span className={`author-avatar ${eraColorClass}`}>
+                                {author.initials}
+                              </span>
+                            )}
+                            <div className="author-info-badge">
+                              <span className="author-name">{author.name}</span>
+                              {(author.birthYear || author.deathYear) && (
+                                <span className="author-years">
+                                  {author.birthYear || '?'}–{author.deathYear || '?'}
+                                </span>
+                              )}
+                            </div>
                           </div>
                         ))}
                       </div>

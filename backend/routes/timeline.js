@@ -30,14 +30,18 @@ router.get('/era/:eraId', async (req, res) => {
       _id: work._id,
       title: work.title,
       authorName: work.authorId.name,
-      publicationYear: work.publicationYear
+      publicationYear: work.publicationYear,
+      link: work.link
     }));
 
     const authors = await Author.find({ eraId });
     const authorsWithInitials = authors.map(author => ({
       _id: author._id,
       name: author.name,
-      initials: author.name.split(' ').map(w => w[0]).join('').toUpperCase()
+      initials: author.name.split(' ').map(w => w[0]).join('').toUpperCase(),
+      birthYear: author.birthYear,
+      deathYear: author.deathYear,
+      image: author.image  // Add this
     }));
 
     res.json({

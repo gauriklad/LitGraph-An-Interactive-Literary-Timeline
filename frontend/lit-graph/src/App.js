@@ -3,7 +3,6 @@ import DNA from "./pages/DNA";
 import Influence from "./pages/Influence";
 import Time from "./pages/Time";
 import { Header } from "./layout/Header";
-import { Footer } from "./layout/Footer";
 import "./App.css";
 
 function App() {
@@ -18,8 +17,6 @@ function App() {
           <Route path="/dna" element={<DNA />} />
           <Route path="/influence" element={<Influence />} />
         </Routes>
-
-        <Footer />
       </div>
     </Router>
   );
