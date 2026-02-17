@@ -6,7 +6,7 @@ const eraColorClasses = {
   neoclassical: "era-neoclassical",
   romantic:     "era-romantic",
   victorian:    "era-victorian",
-  modernist:    "era-modernist",
+  modern:    "era-modernist",
   postmodern:   "era-postmodern",
 };
 

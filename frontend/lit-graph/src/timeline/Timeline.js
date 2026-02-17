@@ -8,7 +8,7 @@ const eraColors = {
   neoclassical: { bg: "rgba(74, 124, 89, 0.12)", border: "rgba(74, 124, 89, 0.3)", text: "#4a7c59" },
   romantic:     { bg: "rgba(194, 96, 122, 0.12)", border: "rgba(194, 96, 122, 0.3)", text: "#c2607a" },
   victorian:    { bg: "rgba(176, 125, 58, 0.12)", border: "rgba(176, 125, 58, 0.3)", text: "#b07d3a" },
-  modernist:    { bg: "rgba(74, 126, 168, 0.12)", border: "rgba(74, 126, 168, 0.3)", text: "#4a7ea8" },
+  modern:    { bg: "rgba(74, 126, 168, 0.12)", border: "rgba(74, 126, 168, 0.3)", text: "#4a7ea8" },
   postmodern:   { bg: "rgba(122, 92, 168, 0.12)", border: "rgba(122, 92, 168, 0.3)", text: "#7a5ca8" },
 };
 
@@ -17,7 +17,7 @@ const eraTransitions = {
   neoclassical: "Shift toward emotional individualism",
   romantic:     "Rise of realism and social conscience",
   victorian:    "Break from tradition, embrace of experimentation",
-  modernist:    "Fragmentation of meaning and grand narratives",
+  modern:    "Fragmentation of meaning and grand narratives",
   postmodern:   null,
 };
 
