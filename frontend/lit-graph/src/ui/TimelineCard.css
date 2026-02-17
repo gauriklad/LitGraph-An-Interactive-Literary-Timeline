@@ -1,3 +1,6 @@
+
+
+/* Card Container */
 .timeline-card-container {
   position: relative;
   display: flex;
@@ -8,33 +11,12 @@
 }
 
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-.card-left {
-  justify-content: flex-start;
-}
-
-.card-right {
-  justify-content: flex-end;
-}
-
-@media (min-width: 768px) {
-  .card-left {
-    justify-content: flex-start;
-  }
-  
-  .card-right {
-    justify-content: flex-end;
-  }
-}
+.card-left  { justify-content: flex-start; }
+.card-right { justify-content: flex-end; }
 
 /* Timeline Dot */
 .timeline-dot {
@@ -43,140 +25,155 @@
 
 @media (min-width: 768px) {
   .timeline-dot {
-    display: flex;
+    display: block;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    width: 12px;
-    height: 12px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
-    background-color: #9ca3af;
-    border: 2px solid #f5f5f0;
     z-index: 10;
+    border: 2px solid #f0f0eb;
   }
 }
 
-/* Card */
-.timeline-card {
+/* Dot colors per era */
+.era-neoclassical-dot { background-color: #4a7c59; }
+.era-romantic-dot     { background-color: #c2607a; }
+.era-victorian-dot    { background-color: #b07d3a; }
+.era-modernist-dot    { background-color: #4a7ea8; }
+.era-postmodern-dot   { background-color: #7a5ca8; }
+
+/* Card Inner */
+.timeline-card-inner {
   position: relative;
   width: 100%;
+  padding: 1.75rem;
+  border-radius: 1.25rem;
+  border: 1px solid;
   cursor: pointer;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.timeline-card-inner:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
 }
 
 @media (min-width: 768px) {
-  .timeline-card {
-    width: 42%;
+  .timeline-card-inner {
+    width: 44%;
   }
-  
-  .card-left .timeline-card {
+
+  .card-left .timeline-card-inner {
     margin-right: auto;
-    margin-left: 3rem;
+    margin-left: 2.5rem;
   }
-  
-  .card-right .timeline-card {
+
+  .card-right .timeline-card-inner {
     margin-left: auto;
-    margin-right: 3rem;
+    margin-right: 2.5rem;
   }
 }
 
-.card-content {
-  position: relative;
-  padding: 1.5rem;
-  border-radius: 1rem;
-  border: 1px solid;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-}
-
-.card-content:hover {
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transform: translateY(-4px);
-}
-
-/* Era Colors */
+/* Era Background & Border Colors */
 .era-neoclassical-bg {
-  background-color: hsl(145, 30%, 95%);
-  border-color: hsl(145, 25%, 35%, 0.3);
+  background-color: rgba(74, 124, 89, 0.08);
+  border-color: rgba(74, 124, 89, 0.25);
 }
 
 .era-romantic-bg {
-  background-color: hsl(340, 50%, 95%);
-  border-color: hsl(340, 45%, 55%, 0.3);
+  background-color: rgba(194, 96, 122, 0.08);
+  border-color: rgba(194, 96, 122, 0.25);
 }
 
 .era-victorian-bg {
-  background-color: hsl(35, 40%, 95%);
-  border-color: hsl(35, 35%, 50%, 0.3);
+  background-color: rgba(176, 125, 58, 0.08);
+  border-color: rgba(176, 125, 58, 0.25);
 }
 
 .era-modernist-bg {
-  background-color: hsl(210, 45%, 95%);
-  border-color: hsl(210, 40%, 50%, 0.3);
+  background-color: rgba(74, 126, 168, 0.08);
+  border-color: rgba(74, 126, 168, 0.25);
 }
 
 .era-postmodern-bg {
-  background-color: hsl(280, 45%, 95%);
-  border-color: hsl(280, 40%, 55%, 0.3);
+  background-color: rgba(122, 92, 168, 0.08);
+  border-color: rgba(122, 92, 168, 0.25);
 }
 
-.era-neoclassical-text {
-  color: hsl(145, 25%, 35%);
+/* Decorative Era Icon */
+.card-era-icon {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  opacity: 0.2;
+  transition: opacity 0.3s;
 }
 
-.era-romantic-text {
-  color: hsl(340, 45%, 55%);
+.timeline-card-inner:hover .card-era-icon {
+  opacity: 0.35;
 }
 
-.era-victorian-text {
-  color: hsl(35, 35%, 50%);
-}
+/* Text Colors per era */
+.era-neoclassical-text { color: #4a7c59; }
+.era-romantic-text     { color: #c2607a; }
+.era-victorian-text    { color: #b07d3a; }
+.era-modernist-text    { color: #4a7ea8; }
+.era-postmodern-text   { color: #7a5ca8; }
 
-.era-modernist-text {
-  color: hsl(210, 40%, 50%);
-}
+/* Same for icon class */
+.era-neoclassical-icon { color: #4a7c59; }
+.era-romantic-icon     { color: #c2607a; }
+.era-victorian-icon    { color: #b07d3a; }
+.era-modernist-icon    { color: #4a7ea8; }
+.era-postmodern-icon   { color: #7a5ca8; }
 
-.era-postmodern-text {
-  color: hsl(280, 40%, 55%);
-}
-
+/* Period Badge */
 .era-period {
   display: inline-block;
-  font-size: 0.75rem;
-  font-weight: 500;
+  font-size: 0.8125rem;
+  font-weight: 600;
   margin-bottom: 0.75rem;
+  letter-spacing: 0.02em;
 }
 
+/* Era Title */
 .era-title {
   font-family: 'Georgia', 'Times New Roman', serif;
-  font-size: 1.25rem;
-  margin-bottom: 0.5rem;
-  color: #1f2937;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #1a1a18;
+  margin: 0 0 0.75rem 0;
   padding-right: 2.5rem;
+  line-height: 1.3;
 }
 
 @media (min-width: 768px) {
-  .era-title {
-    font-size: 1.5rem;
-  }
+  .era-title { font-size: 1.75rem; }
 }
 
+/* Era Summary */
 .era-summary {
-  font-size: 0.875rem;
+  font-size: 0.9375rem;
   color: #6b7280;
-  margin-bottom: 1.25rem;
+  margin: 0 0 1.5rem 0;
   line-height: 1.6;
 }
 
+/* Explore Button */
 .explore-button {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 0.375rem;
-  font-size: 0.875rem;
+  font-size: 0.9375rem;
   font-weight: 500;
   background: none;
   border: none;
   cursor: pointer;
-  transition: gap 0.2s ease;
+  padding: 0;
+  transition: gap 0.25s ease;
 }
 
 .explore-button:hover {
@@ -188,7 +185,8 @@
   height: 1rem;
 }
 
-/* Modal */
+/* ──────────────── MODAL ──────────────── */
+
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -197,41 +195,37 @@
   align-items: center;
   justify-content: center;
   padding: 1rem;
-  background-color: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(4px);
-  animation: fadeIn 0.2s ease;
+  background-color: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(6px);
+  animation: fadeIn 0.25s ease;
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
 .modal-content {
   position: relative;
   background-color: white;
-  border-radius: 1rem;
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
-  max-width: 42rem;
+  border-radius: 1.25rem;
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.2);
+  max-width: 50rem;
   width: 100%;
-  max-height: 85vh;
+  max-height: 75vh;
   overflow-y: auto;
   animation: scaleIn 0.3s ease;
 }
 
+.era-neoclassical-modal-bg { background-color: #f2f7f4; } /* Light Green Tint */
+.era-romantic-modal-bg     { background-color: #fdf2f5; } /* Light Pink Tint */
+.era-victorian-modal-bg    { background-color: #fbf7f0; } /* Light Gold Tint */
+.era-modernist-modal-bg    { background-color: #f2f8fc; } /* Light Blue Tint */
+.era-postmodern-modal-bg   { background-color: #f8f5fc; } /* Light Purple Tint */
+
 @keyframes scaleIn {
-  from {
-    transform: scale(0.95);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
+  from { transform: scale(0.96); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
 }
 
 .modal-close {
@@ -247,9 +241,7 @@
   z-index: 10;
 }
 
-.modal-close:hover {
-  background-color: #f3f4f6;
-}
+.modal-close:hover { background-color: #f3f4f6; }
 
 .close-icon {
   width: 1.25rem;
@@ -257,134 +249,188 @@
   color: #6b7280;
 }
 
+/* Accent bar per era */
 .modal-header-accent {
-  height: 0.5rem;
+  height: 0.375rem;
   width: 100%;
-  border-radius: 1rem 1rem 0 0;
+  border-radius: 1.25rem 1.25rem 0 0;
 }
 
-.modal-header-accent.era-neoclassical {
-  background-color: hsl(145, 25%, 35%);
-}
+.era-neoclassical-accent { background-color: #4a7c59; }
+.era-romantic-accent     { background-color: #c2607a; }
+.era-victorian-accent    { background-color: #b07d3a; }
+.era-modernist-accent    { background-color: #4a7ea8; }
+.era-postmodern-accent   { background-color: #7a5ca8; }
 
-.modal-header-accent.era-romantic {
-  background-color: hsl(340, 45%, 55%);
-}
+.modal-body { padding: 2.25rem; }
 
-.modal-header-accent.era-victorian {
-  background-color: hsl(35, 35%, 50%);
-}
-
-.modal-header-accent.era-modernist {
-  background-color: hsl(210, 40%, 50%);
-}
-
-.modal-header-accent.era-postmodern {
-  background-color: hsl(280, 40%, 55%);
-}
-
-.modal-body {
-  padding: 2rem;
-}
-
-.modal-header-section {
-  margin-bottom: 1.5rem;
-}
+.modal-header-section { margin-bottom: 1.5rem; }
 
 .modal-period {
   font-size: 0.875rem;
-  color: #6b7280;
-  font-weight: 500;
+  font-weight: 600;
+  letter-spacing: 0.02em;
 }
 
 .modal-title {
   font-family: 'Georgia', 'Times New Roman', serif;
-  font-size: 1.875rem;
-  margin: 0.25rem 0 0.5rem 0;
-  color: #1f2937;
+  font-size: 2rem;
+  font-weight: 400;
+  margin: 0.375rem 0 0.625rem 0;
+  color: #1a1a18;
 }
 
 .modal-theme {
   font-weight: 500;
   font-style: italic;
+  font-size: 0.9375rem;
+  margin: 0;
 }
 
 .modal-description {
+  font-size: 0.9375rem;
   color: #6b7280;
-  line-height: 1.6;
-  margin-bottom: 2rem;
+  line-height: 1.7;
+  margin: 0 0 2rem 0;
 }
 
-.loading-text {
-  color: #6b7280;
-  text-align: center;
+.modal-loading {
+  display: flex;
+  justify-content: center;
   padding: 2rem 0;
 }
 
-.modal-section {
-  margin-bottom: 2rem;
+.loading-dots {
+  display: flex;
+  gap: 0.5rem;
 }
+
+.loading-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #d1d5db;
+  animation: pulse 1.2s ease-in-out infinite;
+}
+
+.loading-dot:nth-child(2) { animation-delay: 0.2s; }
+.loading-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.3; transform: scale(0.8); }
+  50%       { opacity: 1; transform: scale(1); }
+}
+
+/* Sections */
+.modal-section { margin-bottom: 2rem; }
 
 .section-header {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.625rem;
   margin-bottom: 1rem;
 }
 
 .section-icon {
-  width: 1.25rem;
-  height: 1.25rem;
-  color: #6366f1;
+  width: 1.125rem;
+  height: 1.125rem;
 }
 
 .section-title {
   font-family: 'Georgia', 'Times New Roman', serif;
-  font-size: 1.25rem;
-  color: #1f2937;
+  font-size: 1.125rem;
+  font-weight: 400;
+  color: #1a1a18;
   margin: 0;
 }
 
+/* Works Grid */
 .works-grid {
   display: grid;
-  gap: 0.5rem;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.625rem;
+}
+
+@media (max-width: 480px) {
+  .works-grid { grid-template-columns: 1fr; }
 }
 
 .work-item {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.75rem;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.875rem;
   border-radius: 0.75rem;
-  background-color: rgba(243, 244, 246, 0.5);
+  background-color: #f9f9f7;
+  border: 1px solid #ebebea;
+  transition: all 0.2s ease;
+}
+
+.work-item-clickable { cursor: pointer; }
+
+.work-item-clickable:hover {
+  background-color: #f3f3f0;
+  transform: translateX(3px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.work-main {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
 }
 
 .work-title {
   font-weight: 500;
-  color: #1f2937;
+  color: #1a1a18;
+  font-size: 0.9375rem;
+  flex: 1;
+  line-height: 1.4;
 }
 
-.work-author {
-  font-size: 0.875rem;
-  color: #6b7280;
+.work-link-icon {
+  width: 0.875rem;
+  height: 0.875rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+  opacity: 0.7;
 }
 
+.work-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.8125rem;
+}
+
+.work-author { color: #9ca3af; }
+.work-separator { color: #d1d5db; }
+.work-year { color: #b0b0a8; font-size: 0.75rem; }
+
+/* Authors */
 .authors-flex {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.625rem;
 }
 
-/* ... existing styles ... */
-/* ... existing styles ... */
+.author-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.5rem 0.875rem 0.5rem 0.5rem;
+  border-radius: 9999px;
+  background-color: #f9f9f7;
+  border: 1px solid #ebebea;
+}
 
 .author-image {
-  width: 4rem;
-  height: 4rem;
+  width: 2rem;
+  height: 2rem;
   border-radius: 50%;
   object-fit: cover;
   flex-shrink: 0;
-  border: 2px solid #e5e7eb;
 }
 
 .author-avatar {
@@ -394,40 +440,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.75rem;
-  font-weight: 600;
+  font-size: 0.6875rem;
+  font-weight: 700;
   color: white;
   flex-shrink: 0;
+  letter-spacing: 0.02em;
 }
 
-.author-avatar.era-neoclassical {
-  background-color: hsl(145, 25%, 35%);
-}
-
-.author-avatar.era-romantic {
-  background-color: hsl(340, 45%, 55%);
-}
-
-.author-avatar.era-victorian {
-  background-color: hsl(35, 35%, 50%);
-}
-
-.author-avatar.era-modernist {
-  background-color: hsl(210, 40%, 50%);
-}
-
-.author-avatar.era-postmodern {
-  background-color: hsl(280, 40%, 55%);
-}
-
-.author-badge {
-  display: flex;
-  align-items: center;
-  gap: 0.625rem;
-  padding: 0.625rem 1rem;
-  border-radius: 9999px;
-  background-color: whitesmoke;
-}
+/* Avatar colors */
+.era-neoclassical-avatar { background-color: #4a7c59; }
+.era-romantic-avatar     { background-color: #c2607a; }
+.era-victorian-avatar    { background-color: #b07d3a; }
+.era-modernist-avatar    { background-color: #4a7ea8; }
+.era-postmodern-avatar   { background-color: #7a5ca8; }
 
 .author-info-badge {
   display: flex;
@@ -438,87 +463,12 @@
 .author-name {
   font-size: 0.875rem;
   font-weight: 500;
-  color: #1f2937;
+  color: #1a1a18;
+  white-space: nowrap;
 }
 
 .author-years {
-  font-size: 0.75rem;
+  font-size: 0.6875rem;
   color: #9ca3af;
   font-variant-numeric: tabular-nums;
-}
-
-/* ... existing styles ... */
-
-.works-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.75rem;
-}
-
-.work-item {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  padding: 0.875rem;
-  border-radius: 0.75rem;
-  background-color: rgba(243, 244, 246, 0.5);
-  transition: all 0.2s ease;
-}
-
-.work-item-clickable {
-  cursor: pointer;
-}
-
-.work-item-clickable:hover {
-  background-color: rgba(243, 244, 246, 0.8);
-  transform: translateX(4px);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-}
-
-.work-main {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem;
-}
-
-.work-title {
-  font-weight: 500;
-  color: #1f2937;
-  flex: 1;
-  font-size: 0.9375rem;
-}
-
-.work-link-icon {
-  width: 1rem;
-  height: 1rem;
-  color: #6b7280;
-  flex-shrink: 0;
-}
-
-.work-meta {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.8125rem;
-}
-
-.work-author {
-  color: #6b7280;
-}
-
-.work-separator {
-  color: #d1d5db;
-}
-
-.work-year {
-  color: #9ca3af;
-  font-size: 0.75rem;
-}
-
-/* Responsive - single column on mobile */
-@media (max-width: 640px) {
-  .works-grid {
-    grid-template-columns: 1fr;
-  }
 }

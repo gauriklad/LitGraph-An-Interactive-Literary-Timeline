@@ -1,13 +1,22 @@
 import { useState } from "react";
-import { ChevronRight, X, BookOpen, Users, ExternalLink } from "lucide-react";
+import { ChevronRight, X, BookOpen, Users, ExternalLink, PenTool, Feather, Factory, Lightbulb, Sparkles } from "lucide-react";
 import "../ui/TimelineCard.css";
 
 const eraColorClasses = {
   neoclassical: "era-neoclassical",
-  romantic: "era-romantic",
-  victorian: "era-victorian",
-  modern: "era-modernist",
-  postmodern: "era-postmodern",
+  romantic:     "era-romantic",
+  victorian:    "era-victorian",
+  modernist:    "era-modernist",
+  postmodern:   "era-postmodern",
+};
+
+// Era icons matching the reference design
+const eraIcons = {
+  neoclassical: PenTool,
+  romantic:     Feather,
+  victorian:    Factory,
+  modernist:    Lightbulb,
+  postmodern:   Sparkles,
 };
 
 export function TimelineCard({ era, index, isLeft }) {
@@ -17,8 +26,9 @@ export function TimelineCard({ era, index, isLeft }) {
   const [loadingDetails, setLoadingDetails] = useState(false);
   const [imageErrors, setImageErrors] = useState({});
 
-  const eraColorClass =
-    eraColorClasses[era.name.toLowerCase()] || "era-neoclassical";
+  const eraKey = era.name.toLowerCase();
+  const eraColorClass = eraColorClasses[eraKey] || "era-neoclassical";
+  const EraIcon = eraIcons[eraKey] || PenTool;
 
   const handleExpand = async () => {
     setIsExpanded(true);
@@ -41,66 +51,68 @@ export function TimelineCard({ era, index, isLeft }) {
   };
 
   const handleWorkClick = (link) => {
-    if (link) {
-      window.open(link, '_blank', 'noopener,noreferrer');
-    }
+    if (link) window.open(link, "_blank", "noopener,noreferrer");
   };
 
   const handleImageError = (authorId) => {
-    setImageErrors(prev => ({ ...prev, [authorId]: true }));
+    setImageErrors((prev) => ({ ...prev, [authorId]: true }));
   };
 
   return (
     <>
       <div
         className={`timeline-card-container ${isLeft ? "card-left" : "card-right"}`}
-        style={{
-          animationDelay: `${index * 0.1}s`,
-        }}
+        style={{ animationDelay: `${index * 0.1}s` }}
       >
         {/* Timeline dot */}
-        <div className="timeline-dot" />
+        <div className={`timeline-dot ${eraColorClass}-dot`} />
 
         {/* Card */}
-        <div className="timeline-card" onClick={handleExpand}>
-          <div className={`card-content ${eraColorClass}-bg`}>
-            {/* Period badge */}
-            <div className={`era-period ${eraColorClass}-text`}>
-              {era.startYear}-{era.endYear}
-            </div>
-
-            {/* Title */}
-            <h3 className="era-title">{era.name}</h3>
-
-            {/* Summary */}
-            <p className="era-summary">{era.shortDescription}</p>
-
-            {/* CTA */}
-            <button className={`explore-button ${eraColorClass}-text`}>
-              Explore Era
-              <ChevronRight className="button-icon" />
-            </button>
+        <div className={`timeline-card-inner ${eraColorClass}-bg`} onClick={handleExpand}>
+          {/* Decorative era icon top-right */}
+          <div className={`card-era-icon ${eraColorClass}-icon`}>
+            <EraIcon size={28} />
           </div>
+
+          {/* Period badge */}
+          <div className={`era-period ${eraColorClass}-text`}>
+            {era.startYear}–{era.endYear}
+          </div>
+
+          {/* Title */}
+          <h3 className="era-title">{era.name}</h3>
+
+          {/* Summary */}
+          <p className="era-summary">{era.shortDescription}</p>
+
+          {/* CTA */}
+          <button className={`explore-button ${eraColorClass}-text`}>
+            Explore Era
+            <ChevronRight className="button-icon" />
+          </button>
         </div>
       </div>
 
       {/* Expanded Modal */}
       {isExpanded && (
         <div className="modal-overlay" onClick={() => setIsExpanded(false)}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <div 
+              className={`modal-content ${eraColorClass}-modal-bg`} 
+              onClick={(e) => e.stopPropagation()}
+            >
             {/* Close button */}
             <button onClick={() => setIsExpanded(false)} className="modal-close">
               <X className="close-icon" />
             </button>
 
-            {/* Era accent header */}
-            <div className={`modal-header-accent ${eraColorClass}`} />
+            {/* Accent bar */}
+            <div className={`modal-header-accent ${eraColorClass}-accent`} />
 
             <div className="modal-body">
               {/* Header */}
               <div className="modal-header-section">
-                <span className="modal-period">
-                  {era.startYear}-{era.endYear}
+                <span className={`modal-period ${eraColorClass}-text`}>
+                  {era.startYear}–{era.endYear}
                 </span>
                 <h2 className="modal-title">{era.name}</h2>
                 <p className={`modal-theme ${eraColorClass}-text`}>
@@ -112,32 +124,41 @@ export function TimelineCard({ era, index, isLeft }) {
               <p className="modal-description">{era.detailedDescription}</p>
 
               {loadingDetails ? (
-                <p className="loading-text">Loading details...</p>
+                <div className="modal-loading">
+                  <div className="loading-dots">
+                    <div className="loading-dot" />
+                    <div className="loading-dot" />
+                    <div className="loading-dot" />
+                  </div>
+                </div>
               ) : (
                 <>
                   {/* Major Masterpieces */}
-                  {works.slice(0,8).length > 0 && (
+                  {works.length > 0 && (
                     <div className="modal-section">
                       <div className="section-header">
-                        <BookOpen className="section-icon" />
+                        <BookOpen className={`section-icon ${eraColorClass}-text`} />
                         <h4 className="section-title">Major Masterpieces</h4>
                       </div>
                       <div className="works-grid">
-                        {works.map((work) => (
-                          <div 
-                            key={work._id} 
-                            className={`work-item ${work.link ? 'work-item-clickable' : ''}`}
+                        {/* SLICED TO SHOW ONLY 6 WORKS */}
+                        {works.slice(0, 6).map((work) => (
+                          <div
+                            key={work._id}
+                            className={`work-item ${work.link ? "work-item-clickable" : ""}`}
                             onClick={() => work.link && handleWorkClick(work.link)}
                           >
                             <div className="work-main">
                               <span className="work-title">{work.title}</span>
-                              {work.link && <ExternalLink className="work-link-icon" />}
+                              {work.link && (
+                                <ExternalLink className={`work-link-icon ${eraColorClass}-text`} />
+                              )}
                             </div>
                             <div className="work-meta">
                               <span className="work-author">{work.authorName}</span>
                               {work.publicationYear && (
                                 <>
-                                  <span className="work-separator">•</span>
+                                  <span className="work-separator">·</span>
                                   <span className="work-year">{work.publicationYear}</span>
                                 </>
                               )}
@@ -152,7 +173,7 @@ export function TimelineCard({ era, index, isLeft }) {
                   {authors.length > 0 && (
                     <div className="modal-section">
                       <div className="section-header">
-                        <Users className="section-icon" />
+                        <Users className={`section-icon ${eraColorClass}-text`} />
                         <h4 className="section-title">Key Figures</h4>
                       </div>
                       <div className="authors-flex">
@@ -166,7 +187,7 @@ export function TimelineCard({ era, index, isLeft }) {
                                 onError={() => handleImageError(author._id)}
                               />
                             ) : (
-                              <span className={`author-avatar ${eraColorClass}`}>
+                              <span className={`author-avatar ${eraColorClass}-avatar`}>
                                 {author.initials}
                               </span>
                             )}
@@ -174,7 +195,7 @@ export function TimelineCard({ era, index, isLeft }) {
                               <span className="author-name">{author.name}</span>
                               {(author.birthYear || author.deathYear) && (
                                 <span className="author-years">
-                                  {author.birthYear || '?'}–{author.deathYear || '?'}
+                                  {author.birthYear || "?"}–{author.deathYear || "?"}
                                 </span>
                               )}
                             </div>
