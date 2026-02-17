@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { ChevronRight, X, BookOpen, Users, ExternalLink, User } from "lucide-react";
+import { ChevronRight, X, BookOpen, Users, ExternalLink } from "lucide-react";
 import "../ui/TimelineCard.css";
 
 const eraColorClasses = {
   neoclassical: "era-neoclassical",
   romantic: "era-romantic",
   victorian: "era-victorian",
-  modernist: "era-modernist",
+  modern: "era-modernist",
   postmodern: "era-postmodern",
 };
 
@@ -116,7 +116,7 @@ export function TimelineCard({ era, index, isLeft }) {
               ) : (
                 <>
                   {/* Major Masterpieces */}
-                  {works.slice(0,6).length > 0 && (
+                  {works.slice(0,8).length > 0 && (
                     <div className="modal-section">
                       <div className="section-header">
                         <BookOpen className="section-icon" />

@@ -1,7 +1,8 @@
 const express = require('express');
-const Author = require('../models/authors'); // Keeping your file path
 const extractDNA = require('../dna/extractdna');
 const cosineSimilarity = require('../dna/similarity');
+const Author = require('../models/authors');
+const Era = require('../models/Era');
 
 const router = express.Router();
 
@@ -9,57 +10,92 @@ router.post('/analyze', async (req, res) => {
   try {
     const { text } = req.body;
 
-    if (!text) return res.status(400).json({ message: "Text required" });
+    if (!text || text.trim().length < 20) {
+      return res.status(400).json({ error: 'Text too short. Please provide at least 20 words.' });
+    }
 
-    // 1. Extract DNA stats from input
+    // Extract DNA from user text
     const userDNA = extractDNA(text);
-    
-    // 2. Fetch authors from DB
-    const authors = await Author.find();
 
+    // Get all authors with their eras
+    const authors = await Author.find().populate('eraId', 'name startYear endYear');
+    const eras = await Era.find().sort({ startYear: 1 });
+
+    // Find best match overall
     let bestMatch = null;
     let bestScore = -1;
 
-    // Helper to ensure vector order is ALWAYS: [vocab, complexity, pacing, abstraction]
-    const toVector = (obj) => [
-      obj.vocab || 0, 
-      obj.complexity || 0, 
-      obj.pacing || 0, 
-      obj.abstraction || 0
-    ];
-
-    const userVector = toVector(userDNA);
-    const debugResults = [];
-
     authors.forEach(author => {
       if (!author.dnastats) return;
-
-      const authorVector = toVector(author.dnastats);
       
-      const score = cosineSimilarity(userVector, authorVector);
-
-      // Keep track of scores for debugging
-      debugResults.push({ name: author.name, score: score });
+      const similarity = cosineSimilarity(userDNA, author.dnastats);
+      const score = Math.round(similarity * 100);
 
       if (score > bestScore) {
         bestScore = score;
-        bestMatch = author;
+        bestMatch = {
+          _id: author._id,
+          name: author.name,
+          dnastats: author.dnastats,
+          birthYear: author.birthYear,
+          deathYear: author.deathYear,
+          shortDescription: author.shortDescription,
+          image: author.image,
+          era: author.eraId ? author.eraId.name : 'Unknown'
+        };
       }
     });
 
-    // 3. Sort debug results to see runners-up
-    debugResults.sort((a, b) => b.score - a.score);
+    // Find best match per era
+    const eraMatches = eras.map(era => {
+      const eraAuthors = authors.filter(a => 
+        a.eraId && a.eraId._id.toString() === era._id.toString()
+      );
+
+      let bestEraMatch = null;
+      let bestEraScore = -1;
+
+      eraAuthors.forEach(author => {
+        if (!author.dnastats) return;
+        
+        const similarity = cosineSimilarity(userDNA, author.dnastats);
+        const score = Math.round(similarity * 100);
+
+        if (score > bestEraScore) {
+          bestEraScore = score;
+          bestEraMatch = {
+            _id: author._id,
+            name: author.name,
+            dnastats: author.dnastats,
+            birthYear: author.birthYear,
+            deathYear: author.deathYear,
+            shortDescription: author.shortDescription,
+            image: author.image,
+            era: era.name
+          };
+        }
+      });
+
+      return {
+        eraId: era._id,
+        eraName: era.name,
+        startYear: era.startYear,
+        endYear: era.endYear,
+        match: bestEraMatch,
+        score: bestEraScore
+      };
+    }).filter(em => em.match !== null); // Only include eras where we found a match
 
     res.json({
       user: userDNA,
       match: bestMatch,
-      score: Math.round(bestScore * 100),
-      debug: debugResults.slice(0, 5) // Send top 5 matches for inspection
+      score: bestScore,
+      eraMatches: eraMatches
     });
 
   } catch (error) {
-    console.error("Analysis Error:", error);
-    res.status(500).json({ message: "Server Error", error: error.message });
+    console.error('DNA Analysis Error:', error);
+    res.status(500).json({ error: 'Analysis failed' });
   }
 });
 

@@ -60,19 +60,15 @@ export function Timeline() {
       });
     });
 
-    // Sort by year
-    const sorted = items.sort((a, b) => a.year - b.year);
-    console.log("Timeline items:", sorted);
-    return sorted;
+    // Sort by year - events come BEFORE era cards on same year
+    return items.sort((a, b) => {
+      if (a.year !== b.year) return a.year - b.year;
+      // Same year: events first, eras second
+      if (a.type === 'event' && b.type === 'era') return -1;
+      if (a.type === 'era' && b.type === 'event') return 1;
+      return 0;
+    });
   };
-
-  if (loading) {
-    return (
-      <div className="timeline-loading">
-        <p>Loading timeline...</p>
-      </div>
-    );
-  }
 
   const timelineItems = getTimelineItems();
   console.log("Rendering", timelineItems.length, "timeline items");

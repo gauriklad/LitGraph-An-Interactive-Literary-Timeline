@@ -56,20 +56,8 @@ export function Header() {
           >
             Timeline
           </Link>
-          <Link
-            to="/dna"
-            className={`nav-link ${
-              location.pathname === '/' || location.pathname === '/dna'
-                ? isInfluencePage 
-                  ? 'nav-link-dark-active' 
-                  : 'nav-link-active'
-                : isInfluencePage 
-                  ? 'nav-link-dark' 
-                  : ''
-            }`}
-          >
-            DNA
-          </Link>
+          
+          {/* Influence is now second */}
           <Link
             to="/influence"
             className={`nav-link ${
@@ -83,6 +71,22 @@ export function Header() {
             }`}
           >
             Influence
+          </Link>
+
+          {/* DNA is now third */}
+          <Link
+            to="/dna"
+            className={`nav-link ${
+              location.pathname === '/dna'
+                ? isInfluencePage 
+                  ? 'nav-link-dark-active' 
+                  : 'nav-link-active'
+                : isInfluencePage 
+                  ? 'nav-link-dark' 
+                  : ''
+            }`}
+          >
+            DNA
           </Link>
         </nav>
       </div>

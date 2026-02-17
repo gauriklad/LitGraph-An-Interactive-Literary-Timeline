@@ -69,10 +69,10 @@
   flex: 1;
 }
 
-.author-name {
+.insight-panel .author-name {
   font-size: 1rem;
   font-weight: 600;
-  color: #f1f5f9;
+  color: white;
   margin: 0 0 0.25rem 0;
 }
 
@@ -116,7 +116,7 @@
 
 .connection-description {
   font-size: 0.875rem;
-  color: #94a3b8;
+  color: whitesmoke;
   line-height: 1.5;
   margin: 0;
 }
@@ -136,7 +136,7 @@
   padding-top: 0.5rem;
 }
 
-.section-title {
+.insight-panel .section-title {
   font-size: 0.875rem;
   font-weight: 600;
   color: #f1f5f9;
