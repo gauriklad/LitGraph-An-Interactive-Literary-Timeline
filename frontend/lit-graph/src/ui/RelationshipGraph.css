@@ -12,12 +12,14 @@
 .graph-svg {
   width: 100%;
   height: 100%;
-  min-height: 500px;
+  min-height: 550px;
 }
 
+/* Loading */
 .graph-loading {
   width: 100%;
   height: 100%;
+  min-height: 550px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -25,74 +27,77 @@
   border-radius: 0.5rem;
 }
 
-.graph-loading p {
-  color: #64748b;
-  font-size: 1rem;
+.graph-loading-dots {
+  display: flex;
+  gap: 0.5rem;
 }
 
-/* Connection styles */
-.connections-group {
-  pointer-events: all;
+.graph-loading-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #475569;
+  animation: graphDotPulse 1.2s ease-in-out infinite;
 }
 
+.graph-loading-dot:nth-child(2) { animation-delay: 0.2s; }
+.graph-loading-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes graphDotPulse {
+  0%, 100% { opacity: 0.3; transform: scale(0.8); }
+  50%       { opacity: 1;   transform: scale(1.1); }
+}
+
+/* Connections */
 .connection-path {
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: stroke-width 0.15s ease, opacity 0.15s ease;
 }
 
 .connection-path:hover {
-  stroke-width: 3;
+  stroke-width: 3 !important;
   opacity: 1 !important;
 }
 
-/* Node styles */
-.nodes-group {
-  pointer-events: all;
-}
-
+/* Nodes */
 .node-group {
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: opacity 0.2s ease;
 }
 
 .node-group.dimmed {
-  opacity: 0.3;
+  opacity: 0.2;
 }
 
 .node-group.highlighted {
   opacity: 1;
 }
 
-.node-circle {
-  transition: all 0.2s ease;
-}
-
+/* Glow pulse on highlighted */
 .node-glow {
-  animation: pulse 2s ease-in-out infinite;
+  animation: nodeGlowPulse 1.8s ease-in-out infinite;
 }
 
-@keyframes pulse {
-  0%, 100% {
-    opacity: 0.3;
-  }
-  50% {
-    opacity: 0.5;
-  }
+@keyframes nodeGlowPulse {
+  0%, 100% { opacity: 0.2; r: 38; }
+  50%       { opacity: 0.35; r: 42; }
 }
 
 .node-initials {
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
   pointer-events: none;
   user-select: none;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+  font-family: system-ui, -apple-system, sans-serif;
 }
 
 .node-name {
   pointer-events: none;
   user-select: none;
   font-family: system-ui, -apple-system, sans-serif;
+  transition: fill 0.2s ease;
 }
 
-/* Responsive adjustments */
+/* Responsive */
 @media (max-width: 768px) {
   .graph-svg {
     min-height: 400px;

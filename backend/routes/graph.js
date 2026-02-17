@@ -35,14 +35,16 @@ router.get('/', async (req, res) => {
       era: eraMap[author.eraId.toString()] || 'neoclassical',
       birthYear: author.birthYear,
       deathYear: author.deathYear,
-      shortDescription: author.shortDescription  // Added this line
+      shortDescription: author.shortDescription,
+      image: author.image
     }));
 
     // Format connections
     const formattedConnections = connections.map(conn => ({
       source: conn.sourceAuthorId.toString(),
       target: conn.targetAuthorId.toString(),
-      type: conn.type
+      type: conn.type,
+      description: conn.description
     }));
 
     res.json({
