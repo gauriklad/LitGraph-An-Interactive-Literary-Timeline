@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { ChevronRight, X, BookOpen, Users, ExternalLink, PenTool, Feather, Factory, Lightbulb, Sparkles } from "lucide-react";
+import { ShadowGallery } from "./ShadowGallery";
 import "../ui/TimelineCard.css";
+import "../ui/ShadowGallery.css";
 
 const eraColorClasses = {
   neoclassical: "era-neoclassical",
@@ -15,11 +17,11 @@ const eraIcons = {
   neoclassical: PenTool,
   romantic:     Feather,
   victorian:    Factory,
-  modernist:    Lightbulb,
+  modern:    Lightbulb,
   postmodern:   Sparkles,
 };
 
-export function TimelineCard({ era, index, isLeft }) {
+export function TimelineCard({ era, index, isLeft, cardRef }) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [works, setWorks] = useState([]);
   const [authors, setAuthors] = useState([]);
@@ -63,7 +65,15 @@ export function TimelineCard({ era, index, isLeft }) {
       <div
         className={`timeline-card-container ${isLeft ? "card-left" : "card-right"}`}
         style={{ animationDelay: `${index * 0.1}s` }}
+        ref={cardRef}
       >
+        {/* Shadow Gallery - background image */}
+        <ShadowGallery 
+          eraId={eraKey} 
+          isLeft={isLeft} 
+          parentRef={cardRef} 
+        />
+
         {/* Timeline dot */}
         <div className={`timeline-dot ${eraColorClass}-dot`} />
 
@@ -96,10 +106,7 @@ export function TimelineCard({ era, index, isLeft }) {
       {/* Expanded Modal */}
       {isExpanded && (
         <div className="modal-overlay" onClick={() => setIsExpanded(false)}>
-            <div 
-              className={`modal-content ${eraColorClass}-modal-bg`} 
-              onClick={(e) => e.stopPropagation()}
-            >
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             {/* Close button */}
             <button onClick={() => setIsExpanded(false)} className="modal-close">
               <X className="close-icon" />
@@ -141,8 +148,7 @@ export function TimelineCard({ era, index, isLeft }) {
                         <h4 className="section-title">Major Masterpieces</h4>
                       </div>
                       <div className="works-grid">
-                        {/* SLICED TO SHOW ONLY 6 WORKS */}
-                        {works.slice(0, 6).map((work) => (
+                        {works.slice(0,6).map((work) => (
                           <div
                             key={work._id}
                             className={`work-item ${work.link ? "work-item-clickable" : ""}`}

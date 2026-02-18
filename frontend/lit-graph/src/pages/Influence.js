@@ -8,7 +8,7 @@ const Influence = () => {
   const [filters, setFilters] = useState({
     influence: true,
     rivalry: true,
-    peer: true,
+    peers: true,
   });
   const [selectedNode, setSelectedNode] = useState(null);
   const [selectedConnection, setSelectedConnection] = useState(null);

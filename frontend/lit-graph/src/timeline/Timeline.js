@@ -1,15 +1,15 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState, useRef, createRef } from "react";
 import { TimelineCard } from "./TimelineCard";
 import { Calendar, Clock } from "lucide-react";
 import "../ui/Timeline.css";
 
-// Era color mapping matching the card colors
+// Era color mapping
 const eraColors = {
-  neoclassical: { bg: "rgba(74, 124, 89, 0.12)", border: "rgba(74, 124, 89, 0.3)", text: "#4a7c59" },
-  romantic:     { bg: "rgba(194, 96, 122, 0.12)", border: "rgba(194, 96, 122, 0.3)", text: "#c2607a" },
-  victorian:    { bg: "rgba(176, 125, 58, 0.12)", border: "rgba(176, 125, 58, 0.3)", text: "#b07d3a" },
-  modern:    { bg: "rgba(74, 126, 168, 0.12)", border: "rgba(74, 126, 168, 0.3)", text: "#4a7ea8" },
-  postmodern:   { bg: "rgba(122, 92, 168, 0.12)", border: "rgba(122, 92, 168, 0.3)", text: "#7a5ca8" },
+  neoclassical: { badge: " #4a7c59", bg: "#96bca2", border: "rgba(74, 124, 89, 0.3)", text: "#0f400b" },
+  romantic:     { badge: "#c2607a", bg: "#f9b9ca", border: "rgba(194, 96, 122, 0.3)", text: "#440919" },
+  victorian:    { badge: "#b07d3a", bg: "#daa969", border: "rgba(176, 125, 58, 0.3)", text: "#472e0c" },
+  modern:    { badge: "#4a7ea8", bg: "#d3ebff", border: "rgba(74, 126, 168, 0.3)", text: "#072946" },
+  postmodern:   { badge: "#7a5ca8", bg: "#dec8ff", border: "rgba(122, 92, 168, 0.3)", text: "#2d184e" },
 };
 
 // Transition labels shown after each era's events
@@ -17,7 +17,7 @@ const eraTransitions = {
   neoclassical: "Shift toward emotional individualism",
   romantic:     "Rise of realism and social conscience",
   victorian:    "Break from tradition, embrace of experimentation",
-  modern:    "Fragmentation of meaning and grand narratives",
+  modernist:    "Fragmentation of meaning and grand narratives",
   postmodern:   null,
 };
 
@@ -42,18 +42,37 @@ const getEventIcon = (label) => {
   return "◆";
 };
 
-export function Timeline() {
+export function Timeline({ onEraChange }) {
   const [eras, setEras] = useState([]);
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
+  const spineRef = useRef(null);
+  const timelineRef = useRef(null);
+  const eraRefs = useRef([]);
+  const cardRefs = useRef([]);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [currentEraIndex, setCurrentEraIndex] = useState(0);
 
   useEffect(() => {
     const fetchTimelineData = async () => {
       try {
         const response = await fetch("http://localhost:5000/api/timeline");
         const data = await response.json();
+        
+        console.log("Timeline data fetched:", {
+          eras: data.eras?.length || 0,
+          events: data.events?.length || 0,
+          eraNames: data.eras?.map(e => `${e.name} (${e.startYear}-${e.endYear})`),
+          eventYears: data.events?.map(e => `${e.year}: ${e.label}`)
+        });
+        
         setEras(data.eras || []);
         setEvents(data.events || []);
+        
+        // Initialize refs arrays
+        eraRefs.current = new Array(data.eras.length).fill(null);
+        cardRefs.current = (data.eras || []).map(() => createRef());
+        
         setLoading(false);
       } catch (error) {
         console.error("Error fetching timeline data:", error);
@@ -63,6 +82,43 @@ export function Timeline() {
 
     fetchTimelineData();
   }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!timelineRef.current) return;
+      
+      const rect = timelineRef.current.getBoundingClientRect();
+      const viewHeight = window.innerHeight;
+      const totalHeight = rect.height;
+      const scrolled = viewHeight - rect.top;
+      const progress = Math.max(0, Math.min(1, scrolled / totalHeight));
+      setScrollProgress(progress);
+
+      let bestIndex = 0;
+      let bestVisibility = -1;
+      
+      eraRefs.current.forEach((el, i) => {
+        if (!el) return;
+        const r = el.getBoundingClientRect();
+        const visible = Math.min(r.bottom, viewHeight) - Math.max(r.top, 0);
+        if (visible > bestVisibility) {
+          bestVisibility = visible;
+          bestIndex = i;
+        }
+      });
+      
+      if (bestIndex !== currentEraIndex) {
+        setCurrentEraIndex(bestIndex);
+        if (onEraChange) {
+          onEraChange(bestIndex);
+        }
+      }
+    };
+    
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [currentEraIndex, onEraChange]);
 
   const getTimelineItems = () => {
     const items = [];
@@ -98,14 +154,22 @@ export function Timeline() {
   }
 
   const timelineItems = getTimelineItems();
-
-  // We need to track what era we just rendered to show transition labels
-  // Use a mutable ref-like approach via a variable
-  const renderedEras = [];
+  const currentEraColor = eras[currentEraIndex] ? eras[currentEraIndex].name.toLowerCase() : "neoclassical";
 
   return (
-    <section className="timeline-section">
+    <section className="timeline-section" ref={timelineRef}>
+      {/* Timeline spine with scroll progress */}
       <div className="timeline-spine" />
+      <div
+        ref={spineRef}
+        className="timeline-spine-progress"
+        style={{
+          height: `${scrollProgress * 100}%`,
+          backgroundColor: eraColors[currentEraColor]?.text || "#4a7c59",
+          opacity: 0.5,
+          transition: "background-color 0.6s ease-in-out",
+        }}
+      />
 
       <div className="timeline-container">
         {/* Header */}
@@ -136,6 +200,7 @@ export function Timeline() {
             timelineItems.forEach((item, i) => {
               if (item.type === "era") {
                 const eraKey = item.data.name.toLowerCase();
+                const eraIndex = item.index;
 
                 // Show transition label before this era if there was a previous era
                 if (lastEraKey && eraTransitions[lastEraKey]) {
@@ -148,11 +213,16 @@ export function Timeline() {
                 }
 
                 elements.push(
-                  <div key={`era-${item.data._id}`} className="timeline-card-wrapper">
+                  <div 
+                    key={`era-${item.data._id}`} 
+                    className="timeline-card-wrapper"
+                    ref={(el) => { eraRefs.current[eraIndex] = el; }}
+                  >
                     <TimelineCard
                       era={item.data}
                       index={item.index}
                       isLeft={item.index % 2 === 0}
+                      cardRef={cardRefs.current[eraIndex]}
                     />
                   </div>
                 );
@@ -180,6 +250,14 @@ export function Timeline() {
                       <span className="event-label" style={{ color: colors.text }}>
                         {item.data.label}
                       </span>
+                      
+                      {/* Tooltip with shortDescription */}
+                      {item.data.shortDescription && (
+                        <div className="event-tooltip" style={{ borderColor: colors.text }}>
+                          <div className="event-tooltip-arrow" style={{ borderBottomColor: colors.bg }} />
+                          <p className="event-tooltip-text">{item.data.shortDescription}</p>
+                        </div>
+                      )}
                     </div>
                   </div>
                 );

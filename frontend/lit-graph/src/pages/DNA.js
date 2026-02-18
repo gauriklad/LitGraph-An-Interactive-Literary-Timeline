@@ -106,8 +106,6 @@ export default function DNA() {
   return (
     <div className="dna-page">
       <div className="dna-container">
-        {/* REMOVED: Header Badge */}
-
         {/* Main Title */}
         <h1 className="dna-title">Literary DNA</h1>
         <p className="dna-subtitle">
@@ -194,56 +192,19 @@ export default function DNA() {
                   </div>
                 </div>
 
-                {/* Radar Chart */}
-                <div className="radar-chart-container">
-                  <ResponsiveContainer width="100%" height={280}>
-                    <RadarChart data={getRadarData(selectedEraIndex)}>
-                      <PolarGrid stroke="#d1d5db" />
-                      <PolarAngleAxis 
-                        dataKey="metric" 
-                        tick={{ fill: '#6b7280', fontSize: 12 }}
-                      />
-                      <PolarRadiusAxis 
-                        angle={30} 
-                        domain={[0, 100]} 
-                        tick={false}
-                      />
-                      <Radar
-                        name="You"
-                        dataKey="user"
-                        stroke="#a78bfa"
-                        strokeWidth={3}
-                        fill="#a78bfa"
-                        fillOpacity={0.5}
-                      />
-                      <Radar
-                        name={currentMatch.match.name}
-                        dataKey="author"
-                        stroke="#94a3b8"
-                        strokeWidth={2}
-                        fill="#94a3b8"
-                        fillOpacity={0.2}
-                        strokeDasharray="5 5"
-                      />
-                      <Legend 
-                        wrapperStyle={{ paddingTop: '20px' }}
-                        iconType="line"
-                      />
-                    </RadarChart>
-                  </ResponsiveContainer>
-                </div>
+                {/* --- SWAPPED SECTION STARTS HERE --- */}
 
-                {/* Style Shift Button */}
+                {/* 1. Style Shift Button */}
                 {!showTimeTravel && result.eraMatches && result.eraMatches.length > 1 && (
-                  <button className="style-shift-button" onClick={handleStyleShift}>
+                  <button className="style-shift-button" onClick={handleStyleShift} style={{ marginBottom: '1.5rem', width: '100%' }}>
                     <Clock size={18} />
                     Explore Style Through Time
                   </button>
                 )}
 
-                {/* Time Slider */}
+                {/* 2. Time Slider Controls */}
                 {showTimeTravel && result.eraMatches && (
-                  <div className="time-travel-section">
+                  <div className="time-travel-section" style={{ marginBottom: '2rem' }}>
                     <h4 className="time-travel-title">Stylometric Time-Travel</h4>
                     <p className="time-travel-subtitle">
                       See how your writing would match authors across different literary eras
@@ -286,6 +247,48 @@ export default function DNA() {
                     </div>
                   </div>
                 )}
+
+                {/* 3. Radar Chart (Now at the bottom) */}
+                <div className="radar-chart-container">
+                  <ResponsiveContainer width="100%" height={280}>
+                    <RadarChart data={getRadarData(selectedEraIndex)}>
+                      <PolarGrid stroke="#d1d5db" />
+                      <PolarAngleAxis 
+                        dataKey="metric" 
+                        tick={{ fill: '#6b7280', fontSize: 12 }}
+                      />
+                      <PolarRadiusAxis 
+                        angle={30} 
+                        domain={[0, 100]} 
+                        tick={false}
+                      />
+                      <Radar
+                        name="You"
+                        dataKey="user"
+                        stroke="#a78bfa"
+                        strokeWidth={3}
+                        fill="#a78bfa"
+                        fillOpacity={0.5}
+                      />
+                      <Radar
+                        name={currentMatch.match.name}
+                        dataKey="author"
+                        stroke="#94a3b8"
+                        strokeWidth={2}
+                        fill="#94a3b8"
+                        fillOpacity={0.2}
+                        strokeDasharray="5 5"
+                      />
+                      <Legend 
+                        wrapperStyle={{ paddingTop: '20px' }}
+                        iconType="line"
+                      />
+                    </RadarChart>
+                  </ResponsiveContainer>
+                </div>
+
+                {/* --- SWAPPED SECTION ENDS HERE --- */}
+
               </div>
             )}
           </div>
