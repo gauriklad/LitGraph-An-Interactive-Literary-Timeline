@@ -11,7 +11,6 @@ export function RelationshipGraph({
   const [authorConnections, setAuthorConnections] = useState([]);
   const [loading, setLoading] = useState(true);
   const [hoveredNode, setHoveredNode] = useState(null);
-  const [brokenImages, setBrokenImages] = useState({});
 
   useEffect(() => {
     const fetchGraphData = async () => {
@@ -116,7 +115,7 @@ export function RelationshipGraph({
       const innerRing = Math.ceil(nodeCount * 0.4);
       const outerRing = nodeCount - innerRing;
       const innerRadius = 160;
-      const outerRadius = 280;
+      const outerRadius = 250;
 
       visibleNodes.forEach((node, index) => {
         if (index < innerRing) {
@@ -186,12 +185,8 @@ export function RelationshipGraph({
   const getNodeColors = (era) =>
     eraNodeColors[era] || eraNodeColors.neoclassical;
 
-  const handleImageError = (nodeId) => {
-    setBrokenImages((prev) => ({ ...prev, [nodeId]: true }));
-  };
-
-  const NODE_R = 28;         // circle radius
-  const IMAGE_R = NODE_R;    // clip radius matches circle
+  const NODE_R = 28;
+  const IMAGE_R = NODE_R;
   const IMAGE_SIZE = IMAGE_R * 2;
 
   if (loading) {
@@ -272,7 +267,7 @@ export function RelationshipGraph({
             const highlighted = isNodeHighlighted(node.id);
             const dimmed = hoveredNode && !highlighted;
             const colors = getNodeColors(node.era);
-            const hasImage = node.image && !brokenImages[node.id];
+            const hasImage = !!node.image;
 
             return (
               <g
@@ -305,10 +300,7 @@ export function RelationshipGraph({
                 {/* Photo or fallback */}
                 {hasImage ? (
                   <>
-                    {/* White inner circle as background while image loads */}
                     <circle r={NODE_R} fill="#1e293b" />
-
-                    {/* Circular clipped photo */}
                     <image
                       href={node.image}
                       x={-IMAGE_R}
@@ -317,10 +309,7 @@ export function RelationshipGraph({
                       height={IMAGE_SIZE}
                       clipPath={`url(#clip-${node.id})`}
                       preserveAspectRatio="xMidYMid slice"
-                      onError={() => handleImageError(node.id)}
                     />
-
-                    {/* Subtle vignette overlay so name is readable */}
                     <circle
                       r={NODE_R}
                       fill="url(#vignette)"
@@ -329,10 +318,7 @@ export function RelationshipGraph({
                   </>
                 ) : (
                   <>
-                    {/* Solid era-color background */}
                     <circle r={NODE_R} fill={colors.fill} />
-
-                    {/* Initials */}
                     <text
                       textAnchor="middle"
                       dy="0.35em"

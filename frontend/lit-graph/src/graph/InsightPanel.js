@@ -10,7 +10,6 @@ export function InsightPanel({
 }) {
   const [authorNodes, setAuthorNodes] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [imageError, setImageError] = useState(false);
 
   useEffect(() => {
     const fetchAuthorNodes = async () => {
@@ -26,11 +25,6 @@ export function InsightPanel({
     };
     fetchAuthorNodes();
   }, []);
-
-  // Reset image error when selected node changes
-  useEffect(() => {
-    setImageError(false);
-  }, [selectedNode]);
 
   const getNodeNameById = (id) =>
     authorNodes.find((n) => n.id === id)?.name || id;
@@ -60,13 +54,11 @@ export function InsightPanel({
       {selectedNode && (
         <div className="selected-item">
           <div className="author-header">
-            {/* Photo or initial avatar */}
-            {selectedNode.image && !imageError ? (
+            {selectedNode.image ? (
               <img
                 src={selectedNode.image}
                 alt={selectedNode.name}
                 className="author-photo"
-                onError={() => setImageError(true)}
               />
             ) : (
               <div className={`author-avatar era-${selectedNode.era}`}>

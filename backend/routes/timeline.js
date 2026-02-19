@@ -49,7 +49,6 @@ router.get('/era/:eraId', async (req, res) => {
       authors: authorsWithInitials
     });
   } catch (error) {
-    console.error('Error fetching era details:', error);
     res.status(500).json({ error: 'Failed to fetch era details' });
   }
 });

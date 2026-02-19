@@ -8,16 +8,15 @@ const eraColorClasses = {
   neoclassical: "era-neoclassical",
   romantic:     "era-romantic",
   victorian:    "era-victorian",
-  modern:    "era-modernist",
+  modern:       "era-modernist",
   postmodern:   "era-postmodern",
 };
 
-// Era icons matching the reference design
 const eraIcons = {
   neoclassical: PenTool,
   romantic:     Feather,
   victorian:    Factory,
-  modern:    Lightbulb,
+  modern:       Lightbulb,
   postmodern:   Sparkles,
 };
 
@@ -26,7 +25,6 @@ export function TimelineCard({ era, index, isLeft, cardRef }) {
   const [works, setWorks] = useState([]);
   const [authors, setAuthors] = useState([]);
   const [loadingDetails, setLoadingDetails] = useState(false);
-  const [imageErrors, setImageErrors] = useState({});
 
   const eraKey = era.name.toLowerCase();
   const eraColorClass = eraColorClasses[eraKey] || "era-neoclassical";
@@ -56,10 +54,6 @@ export function TimelineCard({ era, index, isLeft, cardRef }) {
     if (link) window.open(link, "_blank", "noopener,noreferrer");
   };
 
-  const handleImageError = (authorId) => {
-    setImageErrors((prev) => ({ ...prev, [authorId]: true }));
-  };
-
   return (
     <>
       <div
@@ -67,35 +61,27 @@ export function TimelineCard({ era, index, isLeft, cardRef }) {
         style={{ animationDelay: `${index * 0.1}s` }}
         ref={cardRef}
       >
-        {/* Shadow Gallery - background image */}
         <ShadowGallery 
           eraId={eraKey} 
           isLeft={isLeft} 
           parentRef={cardRef} 
         />
 
-        {/* Timeline dot */}
         <div className={`timeline-dot ${eraColorClass}-dot`} />
 
-        {/* Card */}
         <div className={`timeline-card-inner ${eraColorClass}-bg`} onClick={handleExpand}>
-          {/* Decorative era icon top-right */}
           <div className={`card-era-icon ${eraColorClass}-icon`}>
             <EraIcon size={28} />
           </div>
 
-          {/* Period badge */}
           <div className={`era-period ${eraColorClass}-text`}>
             {era.startYear}–{era.endYear}
           </div>
 
-          {/* Title */}
           <h3 className="era-title">{era.name}</h3>
 
-          {/* Summary */}
           <p className="era-summary">{era.shortDescription}</p>
 
-          {/* CTA */}
           <button className={`explore-button ${eraColorClass}-text`}>
             Explore Era
             <ChevronRight className="button-icon" />
@@ -103,20 +89,16 @@ export function TimelineCard({ era, index, isLeft, cardRef }) {
         </div>
       </div>
 
-      {/* Expanded Modal */}
       {isExpanded && (
         <div className="modal-overlay" onClick={() => setIsExpanded(false)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            {/* Close button */}
             <button onClick={() => setIsExpanded(false)} className="modal-close">
               <X className="close-icon" />
             </button>
 
-            {/* Accent bar */}
             <div className={`modal-header-accent ${eraColorClass}-accent`} />
 
             <div className="modal-body">
-              {/* Header */}
               <div className="modal-header-section">
                 <span className={`modal-period ${eraColorClass}-text`}>
                   {era.startYear}–{era.endYear}
@@ -127,7 +109,6 @@ export function TimelineCard({ era, index, isLeft, cardRef }) {
                 </p>
               </div>
 
-              {/* Description */}
               <p className="modal-description">{era.detailedDescription}</p>
 
               {loadingDetails ? (
@@ -140,7 +121,6 @@ export function TimelineCard({ era, index, isLeft, cardRef }) {
                 </div>
               ) : (
                 <>
-                  {/* Major Masterpieces */}
                   {works.length > 0 && (
                     <div className="modal-section">
                       <div className="section-header">
@@ -148,7 +128,7 @@ export function TimelineCard({ era, index, isLeft, cardRef }) {
                         <h4 className="section-title">Major Masterpieces</h4>
                       </div>
                       <div className="works-grid">
-                        {works.slice(0,6).map((work) => (
+                        {works.slice(0, 6).map((work) => (
                           <div
                             key={work._id}
                             className={`work-item ${work.link ? "work-item-clickable" : ""}`}
@@ -175,7 +155,6 @@ export function TimelineCard({ era, index, isLeft, cardRef }) {
                     </div>
                   )}
 
-                  {/* Key Figures */}
                   {authors.length > 0 && (
                     <div className="modal-section">
                       <div className="section-header">
@@ -185,12 +164,11 @@ export function TimelineCard({ era, index, isLeft, cardRef }) {
                       <div className="authors-flex">
                         {authors.map((author) => (
                           <div key={author._id} className="author-badge">
-                            {author.image && !imageErrors[author._id] ? (
+                            {author.image ? (
                               <img
                                 src={author.image}
                                 alt={author.name}
                                 className="author-image"
-                                onError={() => handleImageError(author._id)}
                               />
                             ) : (
                               <span className={`author-avatar ${eraColorClass}-avatar`}>

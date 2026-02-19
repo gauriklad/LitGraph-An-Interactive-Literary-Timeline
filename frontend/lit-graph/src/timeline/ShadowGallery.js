@@ -1,35 +1,35 @@
 import { useEffect, useState, useRef } from "react";
-import shadowNeoclassical from "../assets/shadow-neoclassical.png";
-import shadowRomantic from "../assets/shadow-romantic.png";
-import shadowVictorian from "../assets/shadow-victorian.png";
-import shadowModernist from "../assets/shadow-modernist.png";
-import shadowPostmodern from "../assets/shadow-postmodern.png";
+import shadowNeoclassical from "../assets/neoclassical.jpeg";
+import shadowRomantic from "../assets/romanticism.jpg";
+import shadowVictorian from "../assets/victorian.jpg";
+import shadowModernist from "../assets/modern.jpg";
+import shadowPostmodern from "../assets/postmodern.jpg";
 
 const shadowImages = {
   neoclassical: { 
     src: shadowNeoclassical, 
-    caption: "Palladian Villa", 
-    subtitle: "Classical Order & Symmetry" 
+    caption: "The Progress of Love: The Pursuit, 1771", 
+    subtitle: "Jean-Honoré Fragonard" 
   },
   romantic: { 
     src: shadowRomantic, 
-    caption: "Sublime Landscape", 
-    subtitle: "Nature's Overwhelming Beauty" 
+    caption: "The Morning, 1808", 
+    subtitle: "Philipp Otto Runge" 
   },
   victorian: { 
     src: shadowVictorian, 
-    caption: "Industrial Gothic", 
-    subtitle: "Iron, Smoke & Gaslight" 
+    caption: "Sketching from Nature, 1857", 
+    subtitle: "Stanley Baldwin" 
   },
   modern: { 
     src: shadowModernist, 
-    caption: "Cubist Study", 
-    subtitle: "Fragmented Perception" 
+    caption: "Girl on a Pillow, 1936", 
+    subtitle: "Pablo Picasso" 
   },
   postmodern: { 
     src: shadowPostmodern, 
-    caption: "Postmodern Collage", 
-    subtitle: "Deconstructed Identity" 
+    caption: "Water Bearer, 1981", 
+    subtitle: "Sandro Chia" 
   },
 };
 

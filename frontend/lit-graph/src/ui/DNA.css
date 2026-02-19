@@ -45,6 +45,7 @@
 .dna-input-section {
   display: flex;
   flex-direction: column;
+  width: 90%;
 }
 
 .section-title {
@@ -131,6 +132,7 @@
   padding: 1.5rem;
   border: 1px solid #e5e7eb;
   min-height: 400px;
+  margin-left: -4rem;
   display: flex;
   flex-direction: column;
 }
@@ -268,7 +270,7 @@
   gap: 0.5rem;
   width: 100%;
   padding: 0.875rem 1.5rem;
-  margin-top: 1.5rem;
+  margin-top: -1.5rem;
   background-color: #f3f4f6;
   color: #4b5563;
   border: 2px solid #e5e7eb;
@@ -286,7 +288,7 @@
 
 /* Time Travel Section */
 .time-travel-section {
-  margin-top: 2rem;
+  margin-top: -2rem;
   padding-top: 2rem;
   border-top: 1px solid #e5e7eb;
 }
