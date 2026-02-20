@@ -1,0 +1,13 @@
+# Local env for CRA development
+.env.development
+
+# Node
+node_modules/
+build/
+```// filepath: frontend/lit-graph/.gitignore
+# Local env for CRA development
+.env.development
+
+# Node
+node_modules/
+build/

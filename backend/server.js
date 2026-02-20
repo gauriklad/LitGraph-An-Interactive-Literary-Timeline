@@ -8,8 +8,15 @@ const graphRoutes = require('./routes/graph');
 const timelineRouter = require('./routes/timeline');
 
 const app = express();
-app.use(cors());
+// Configure CORS to allow FRONTEND_URL (fallback to all origins)
+const allowedOrigin = process.env.FRONTEND_URL || '*';
+app.use(cors({ origin: allowedOrigin }));
 app.use(express.json());
+
+// Health check - placed before other routes
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: "ok", timestamp: new Date().toISOString() });
+});
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('✅ MongoDB connected'))
@@ -27,5 +34,5 @@ mongoose.connection.once('open', async () => {
   console.log('Connected DB name:', mongoose.connection.name);
 });
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🚀 Backend running on ${PORT}`));

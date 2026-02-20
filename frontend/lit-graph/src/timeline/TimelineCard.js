@@ -20,6 +20,8 @@ const eraIcons = {
   postmodern:   Sparkles,
 };
 
+const API = process.env.REACT_APP_API_URL;
+
 export function TimelineCard({ era, index, isLeft, cardRef }) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [works, setWorks] = useState([]);
@@ -37,7 +39,7 @@ export function TimelineCard({ era, index, isLeft, cardRef }) {
       setLoadingDetails(true);
       try {
         const response = await fetch(
-          `http://localhost:5000/api/timeline/era/${era._id}`
+          `${API}/api/timeline/era/${era._id}`
         );
         const data = await response.json();
         setWorks(data.works || []);

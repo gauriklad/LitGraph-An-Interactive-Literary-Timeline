@@ -11,6 +11,8 @@ import {
 } from "recharts";
 import "../ui/DNA.css";
 
+const API = process.env.REACT_APP_API_URL;
+
 export default function DNA() {
   const [text, setText] = useState("");
   const [loading, setLoading] = useState(false);
@@ -27,7 +29,7 @@ export default function DNA() {
     setShowTimeTravel(false);
 
     try {
-      const res = await fetch("http://localhost:5000/api/dna/analyze", {
+      const res = await fetch(`${API}/api/dna/analyze`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ text })

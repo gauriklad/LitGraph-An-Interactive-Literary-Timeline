@@ -3,6 +3,8 @@ import { TimelineCard } from "./TimelineCard";
 import { Calendar, Clock } from "lucide-react";
 import "../ui/Timeline.css";
 
+const API = process.env.REACT_APP_API_URL;
+
 // Era color mapping
 const eraColors = {
   neoclassical: { badge: "#4a7c59", bg: "#96bca2", border: "rgba(74, 124, 89, 0.3)",  text: "#0f400b", subtleBg: "#edf4ef" },
@@ -56,7 +58,7 @@ export function Timeline({ onEraChange }) {
   useEffect(() => {
     const fetchTimelineData = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/timeline");
+        const response = await fetch(`${API}/api/timeline`);
         const data = await response.json();
         
         console.log("Timeline data fetched:", {

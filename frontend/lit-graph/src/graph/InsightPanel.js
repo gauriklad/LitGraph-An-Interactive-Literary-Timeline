@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { ArrowRight, Swords, Users } from "lucide-react";
 import "../ui/insightpanel.css";
 
+const API = process.env.REACT_APP_API_URL;
+
 export function InsightPanel({
   selectedNode,
   selectedConnection,
@@ -14,7 +16,7 @@ export function InsightPanel({
   useEffect(() => {
     const fetchAuthorNodes = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/graph");
+        const response = await fetch(`${API}/api/graph`);
         const data = await response.json();
         setAuthorNodes(data.nodes || []);
         setLoading(false);

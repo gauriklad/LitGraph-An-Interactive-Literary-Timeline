@@ -1,6 +1,8 @@
 import { useMemo, useState, useCallback, useEffect } from "react";
 import "../ui/RelationshipGraph.css";
 
+const API = process.env.REACT_APP_API_URL;
+
 export function RelationshipGraph({
   filters,
   onSelectNode,
@@ -15,7 +17,7 @@ export function RelationshipGraph({
   useEffect(() => {
     const fetchGraphData = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/graph");
+        const response = await fetch(`${API}/api/graph`);
         const data = await response.json();
         setAuthorNodes(data.nodes || []);
         const formattedConnections = (data.connections || []).map(conn => ({
