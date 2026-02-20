@@ -65,12 +65,12 @@ export default function DNA() {
     };
 
     let matchStats;
-    let matchName;
+    let _matchName;
 
     if (showTimeTravel && eraIndex !== null && result.eraMatches && result.eraMatches[eraIndex]) {
       const eraMatch = result.eraMatches[eraIndex];
       matchStats = eraMatch.match.dnastats;
-      matchName = eraMatch.match.name;
+      _matchName = eraMatch.match.name;
     } else {
       matchStats = result.match.dnastats || {
         vocab: 0,
@@ -78,7 +78,7 @@ export default function DNA() {
         pacing: 0,
         abstraction: 0
       };
-      matchName = result.match.name;
+      _matchName = result.match.name;
     }
 
     return [
