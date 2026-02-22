@@ -1,8 +1,5 @@
-/**
- * Cosine Similarity
- * Compares two numerical DNA vectors or objects
- */
-
+//Cosine Similarity
+//Compares two numerical DNA vectors or objects
 function cosineSimilarity(vecA, vecB) {
   if (!vecA || !vecB) return 0;
 

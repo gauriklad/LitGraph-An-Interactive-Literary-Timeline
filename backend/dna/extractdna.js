@@ -1,8 +1,5 @@
-/**
- * Literary DNA Extraction
- * Converts raw text into stylometric features (0-100 Scale)
- */
-
+//Literary DNA Extraction
+//Converts raw text into stylometric features (0-100 Scale)
 function extractDNA(text) {
   if (!text || typeof text !== "string") {
     return { vocab: 0, complexity: 0, pacing: 0, abstraction: 0 };
@@ -17,19 +14,19 @@ function extractDNA(text) {
 
   if (words.length === 0) return { vocab: 0, complexity: 0, pacing: 0, abstraction: 0 };
 
-  // --- METRIC 1: VOCABULARY (Type-Token Ratio) ---
+  //METRIC 1: VOCABULARY (Type-Token Ratio)
   // Scale: Direct Percentage
   const uniqueWords = new Set(words);
   let vocab = (uniqueWords.size / words.length) * 100;
   // Adjustment: Short texts artificially inflate TTR, so we dampen slightly for very short texts
   if (words.length < 50) vocab *= 0.8;
 
-  // --- METRIC 2: COMPLEXITY (Avg Sentence Length) ---
+  //METRIC 2: COMPLEXITY (Avg Sentence Length)
   // Scale: Map 0-40 words/sentence to 0-100 score
   const avgSentenceLength = words.length / Math.max(sentences.length, 1);
   const complexity = Math.min((avgSentenceLength / 30) * 100, 100);
 
-  // --- METRIC 3: PACING (Sentence Length Variation) ---
+  //METRIC 3: PACING (Sentence Length Variation)
   // Scale: Standard Deviation. Map 0-15 deviation to 0-100 score
   const variance = sentences.reduce((sum, sentence) => {
     const len = (sentence.match(/\b[a-z]+\b/g) || []).length;
@@ -39,7 +36,7 @@ function extractDNA(text) {
   const stdDev = Math.sqrt(variance);
   const pacing = Math.min((stdDev / 15) * 100, 100);
 
-  // --- METRIC 4: ABSTRACTION (Abstract Noun Usage) ---
+  //METRIC 4: ABSTRACTION (Abstract Noun Usage)
   // Expanded list + Suffix check
   const abstractSuffixes = ["tion", "ism", "ity", "ment", "ness", "ance", "ence"];
   const commonAbstractWords = [
@@ -58,7 +55,7 @@ function extractDNA(text) {
     }
   });
 
-  // Scale: Abstraction is rare. 10% usage is VERY high.
+  // Scale: Abstraction is rare. 10% usage is very high.
   // We multiply the raw ratio by 10 to map 0-10% usage to 0-100 score.
   const abstraction = Math.min((abstractCount / words.length) * 100 * 8, 100);
 

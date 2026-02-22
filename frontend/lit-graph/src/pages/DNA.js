@@ -191,8 +191,6 @@ export default function DNA() {
                   </div>
                 </div>
 
-                {/* --- SWAPPED SECTION STARTS HERE --- */}
-
                 {/* 1. Style Shift Button */}
                 {!showTimeTravel && result.eraMatches && result.eraMatches.length > 1 && (
                   <button className="style-shift-button" onClick={handleStyleShift} style={{ marginBottom: '1.5rem', width: '100%' }}>
@@ -247,7 +245,7 @@ export default function DNA() {
                   </div>
                 )}
 
-                {/* 3. Radar Chart (Now at the bottom) */}
+                {/* 3. Radar Chart*/}
                 <div className="radar-chart-container">
                   <ResponsiveContainer width="100%" height={280}>
                     <RadarChart data={getRadarData(selectedEraIndex)}>
@@ -285,9 +283,6 @@ export default function DNA() {
                     </RadarChart>
                   </ResponsiveContainer>
                 </div>
-
-                {/* --- SWAPPED SECTION ENDS HERE --- */}
-
               </div>
             )}
           </div>

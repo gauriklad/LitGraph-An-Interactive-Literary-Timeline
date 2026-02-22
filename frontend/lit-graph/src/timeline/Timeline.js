@@ -19,7 +19,7 @@ const eraTransitions = {
   neoclassical: "Shift toward emotional individualism",
   romantic:     "Rise of realism and social conscience",
   victorian:    "Break from tradition, embrace of experimentation",
-  modernist:    "Fragmentation of meaning and grand narratives",
+  modern:    "Fragmentation of meaning and grand narratives",
   postmodern:   null,
 };
 

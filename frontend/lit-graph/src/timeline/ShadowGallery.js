@@ -65,7 +65,7 @@ export function ShadowGallery({ eraId, isLeft, parentRef }) {
 
   const opacity = visibility * 0.22; // max ~22% for ghostly but visible
 
-  // Era-specific colors (matching your theme)
+  // Era-specific colors
   const eraColorVars = {
     neoclassical: "145, 25%, 35%",
     romantic: "340, 45%, 55%",
@@ -74,7 +74,7 @@ export function ShadowGallery({ eraId, isLeft, parentRef }) {
     postmodern: "280, 40%, 55%",
   };
 
-  const eraColor = eraColorVars[eraId] || eraColorVars.neoclassical;
+  const eraColor = eraColorVars[eraId];
 
   return (
     <div

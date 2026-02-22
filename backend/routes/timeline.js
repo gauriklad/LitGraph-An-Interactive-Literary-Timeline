@@ -41,7 +41,7 @@ router.get('/era/:eraId', async (req, res) => {
       initials: author.name.split(' ').map(w => w[0]).join('').toUpperCase(),
       birthYear: author.birthYear,
       deathYear: author.deathYear,
-      image: author.image  // Add this
+      image: author.image 
     }));
 
     res.json({
