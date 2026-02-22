@@ -61,7 +61,7 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  padding: 0.5rem 5rem;
+  padding: 0.5rem 2rem;
   overflow: hidden;
 }
 
@@ -89,7 +89,12 @@
     font-size: 2rem;
   }
 
+  .insight-panel {
+    width: 100%;
+    max-width: 100%;
+  }
+
   .graph-container {
-    padding: 1rem;
+    padding: 0.5rem 0.75rem;
   }
 }

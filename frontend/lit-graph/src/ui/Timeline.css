@@ -62,7 +62,7 @@
 .timeline-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 1.25rem;
   position: relative;
   z-index: 1;
 }
@@ -178,6 +178,9 @@
 .event-badge {
   display: inline-flex;
   align-items: center;
+  max-width: 95%;
+  text-align: center;
+  flex-wrap: wrap;
   gap: 0.625rem;
   padding: 0.5rem 1.125rem;
   border-radius: 9999px;
@@ -291,6 +294,16 @@
 
   .event-year {
     font-size: 0.75rem;
+  }
+
+  .timeline-section {
+    overflow-x: hidden;
+    padding: 3rem 0 5rem;
+  }
+
+  .timeline-title {
+    font-size: 2.2rem;
+    margin-top: -1.5rem; /* reduce negative pull */
   }
 
   .timeline-stats {

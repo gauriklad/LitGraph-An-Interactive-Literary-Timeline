@@ -7,6 +7,7 @@
   background-color: #0f1520;
   border-radius: 0.5rem;
   position: relative;
+  overflow: hidden;
 }
 
 .graph-svg {
@@ -100,8 +101,12 @@
 
 /* Responsive */
 @media (max-width: 768px) {
+  .relationship-graph {
+    overflow-x: auto;
+  }
   .graph-svg {
-    min-height: 400px;
-    max-height: 60vh;
+    min-width: 700px;
+    min-height: 380px;
+    max-height: 55vh;
   }
 }
