@@ -6,7 +6,7 @@ const AuthorSchema = new mongoose.Schema({
   deathYear: Number,
   image: String,
   shortDescription: String,
-  eraId: { type: mongoose.Schema.Types.ObjectId, ref: 'Era' }, // Links to your Era collection
+  eraId: { type: mongoose.Schema.Types.ObjectId, ref: 'Era' },
   dnastats: {
     vocab: { type: Number, required: true },      // 0-100
     complexity: { type: Number, required: true }, // 0-100

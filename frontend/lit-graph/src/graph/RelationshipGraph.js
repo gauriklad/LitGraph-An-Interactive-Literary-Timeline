@@ -240,7 +240,7 @@ export function RelationshipGraph({
         {/* Background grid */}
         <rect width="100%" height="100%" fill="url(#rg-grid)" />
 
-        {/* ── CONNECTIONS ── */}
+        {/*CONNECTIONS*/}
         <g>
           {activeConnections.map((conn, idx) => {
             const style = getConnectionStyle(conn.type);
@@ -260,7 +260,7 @@ export function RelationshipGraph({
           })}
         </g>
 
-        {/* ── NODES ── */}
+        {/*NODES*/}
         <g>
           {visibleNodes.map((node) => {
             const pos = nodePositions[node.id];

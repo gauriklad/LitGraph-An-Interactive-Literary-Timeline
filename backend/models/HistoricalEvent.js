@@ -7,7 +7,7 @@ const historicalEventSchema = new mongoose.Schema({
   icon: String,
   eraId: { type: mongoose.Schema.Types.ObjectId, ref: 'Era' }
 }, {
-  collection: 'historicalEvents'  // Add this line to specify the exact collection name
+  collection: 'historicalEvents'
 });
 
 module.exports = mongoose.model("HistoricalEvent", historicalEventSchema);

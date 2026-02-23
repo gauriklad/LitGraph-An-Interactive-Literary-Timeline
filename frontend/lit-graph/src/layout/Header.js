@@ -35,13 +35,14 @@ export function Header() {
               LitGraph
             </h1>
             <p className={`logo-subtitle ${isInfluencePage ? 'logo-subtitle-dark' : ''}`}>
-              Literary Visualization
+              An Interactive Literary Timeline
             </p>
           </div>
         </Link>
 
         {/* Navigation */}
         <nav className="header-nav">
+          {/* Timeline */}
           <Link
             to="/time"
             className={`nav-link ${
@@ -57,7 +58,7 @@ export function Header() {
             Timeline
           </Link>
           
-          {/* Influence is now second */}
+          {/* Influence*/}
           <Link
             to="/influence"
             className={`nav-link ${
@@ -73,7 +74,7 @@ export function Header() {
             Influence
           </Link>
 
-          {/* DNA is now third */}
+          {/* DNA*/}
           <Link
             to="/dna"
             className={`nav-link ${

@@ -54,7 +54,6 @@ function extractDNA(text) {
       abstractCount++;
     }
   });
-
   // Scale: Abstraction is rare. 10% usage is very high.
   // We multiply the raw ratio by 10 to map 0-10% usage to 0-100 score.
   const abstraction = Math.min((abstractCount / words.length) * 100 * 8, 100);

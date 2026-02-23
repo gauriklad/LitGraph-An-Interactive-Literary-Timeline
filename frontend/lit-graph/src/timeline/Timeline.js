@@ -8,18 +8,18 @@ const API = process.env.REACT_APP_API_URL;
 // Era color mapping
 const eraColors = {
   neoclassical: { badge: "#4a7c59", bg: "#96bca2", border: "rgba(74, 124, 89, 0.3)",  text: "#0f400b", subtleBg: "#edf4ef" },
-  romantic:     { badge: "#c2607a", bg: "#f9b9ca", border: "rgba(194, 96, 122, 0.3)", text: "#440919", subtleBg: "#fdf0f3" },
-  victorian:    { badge: "#b07d3a", bg: "#daa969", border: "rgba(176, 125, 58, 0.3)", text: "#472e0c", subtleBg: "#faf4ea" },
-  modern:       { badge: "#4a7ea8", bg: "#d3ebff", border: "rgba(74, 126, 168, 0.3)", text: "#072946", subtleBg: "#eff6ff" },
-  postmodern:   { badge: "#7a5ca8", bg: "#dec8ff", border: "rgba(122, 92, 168, 0.3)", text: "#2d184e", subtleBg: "#f5f0ff" },
+  romantic: { badge: "#c2607a", bg: "#f9b9ca", border: "rgba(194, 96, 122, 0.3)", text: "#440919", subtleBg: "#fdf0f3" },
+  victorian: { badge: "#b07d3a", bg: "#daa969", border: "rgba(176, 125, 58, 0.3)", text: "#472e0c", subtleBg: "#faf4ea" },
+  modern: { badge: "#4a7ea8", bg: "#d3ebff", border: "rgba(74, 126, 168, 0.3)", text: "#072946", subtleBg: "#eff6ff" },
+  postmodern: { badge: "#7a5ca8", bg: "#dec8ff", border: "rgba(122, 92, 168, 0.3)", text: "#2d184e", subtleBg: "#f5f0ff" },
 };
 
 // Transition labels shown after each era's events
 const eraTransitions = {
   neoclassical: "Shift toward emotional individualism",
-  romantic:     "Rise of realism and social conscience",
-  victorian:    "Break from tradition, embrace of experimentation",
-  modern:    "Fragmentation of meaning and grand narratives",
+  romantic: "Rise of realism and social conscience",
+  victorian: "Break from tradition, embrace of experimentation",
+  modern: "Fragmentation of meaning and grand narratives",
   postmodern:   null,
 };
 
