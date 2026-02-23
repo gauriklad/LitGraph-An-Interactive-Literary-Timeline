@@ -73,7 +73,7 @@ export function InsightPanel({
               <p className="author-era">{selectedNode.era} Era</p>
               {(selectedNode.birthYear || selectedNode.deathYear) && (
                 <p className="author-years">
-                  {selectedNode.birthYear || "?"}–{selectedNode.deathYear || "?"}
+                  {selectedNode.birthYear || "?"}–{selectedNode.deathYear || "Present"}
                 </p>
               )}
             </div>
