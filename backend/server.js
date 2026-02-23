@@ -13,7 +13,7 @@ const allowedOrigin = process.env.FRONTEND_URL || '*';
 app.use(cors({ origin: allowedOrigin }));
 app.use(express.json());
 
-// Health check - placed before other routes
+// Health check
 app.get('/health', (req, res) => {
   res.status(200).json({ status: "ok", timestamp: new Date().toISOString() });
 });
